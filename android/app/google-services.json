@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1090114089190",
+    "project_id": "e-bajrai-mini-market",
+    "storage_bucket": "e-bajrai-mini-market.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090114089190:android:8b5e301670a418473ecb27",
+        "android_client_info": {
+          "package_name": "com.example.e_bajrai_mini_market"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090114089190-56jnnbstp4451dsvchtqfbpaonfrtbv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDOiPI8hIpuOUBROk7YtOa-JD_3FWC6F0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090114089190-56jnnbstp4451dsvchtqfbpaonfrtbv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
