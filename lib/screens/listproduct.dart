@@ -5,7 +5,8 @@ import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
 
 class ListProduct extends StatelessWidget {
   final snapShot;
-  ListProduct({this.snapShot});
+  final String title;
+  ListProduct({required this.title, this.snapShot});
 
     @override
     Widget build(BuildContext context) {
@@ -46,9 +47,9 @@ class ListProduct extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const <Widget>[
+                        children: <Widget>[
                           Text(
-                            "Featured",
+                            title,
                             style: TextStyle(
                               fontSize: 17,fontWeight: FontWeight.bold),
                           ),

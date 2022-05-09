@@ -11,6 +11,10 @@ import 'package:hexcolor/hexcolor.dart';
 Product ? chickenData;
 Product ? beefData;
 var mySnapShot;
+var fruitVeg;
+var dairyEgg;
+var meatFish;
+var beverage;
 
 class HomePage extends StatelessWidget {
 
@@ -87,165 +91,258 @@ Widget _buildCategoryProduct(String image, String color) {
             packing: snapshot.data.docs[0]["packing"]
           );
 
-          return Container(
-            height: double.infinity,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal:20),
-            child: ListView(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 200,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: AssetImage("images/grocery.png"),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(
-                                              "Categories",
-                                              style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 60,
-                                        child: Row(
-                                          children: <Widget>[
-                                            _buildCategoryProduct("apple_icon.png", "#53B175"),
-                                            _buildCategoryProduct("eggs.png", "#53B175"),
-                                            _buildCategoryProduct("meat.png", "#53B175"),
-                                            _buildCategoryProduct("soda-bottle.png", "#53B175")
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 30,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                        
-                              Container(
-                                height: 50,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+          return FutureBuilder(
+            future: FirebaseFirestore.instance.collection("products").where("categoryID", isEqualTo: "fruitVeg").get(),
+            builder: (context, AsyncSnapshot snapshot2) {
+              if(snapshot2.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              fruitVeg = snapshot2;
+
+              return FutureBuilder(
+                future: FirebaseFirestore.instance.collection("products").where("categoryID", isEqualTo: "dairyEgg").get(),
+                builder: (context, AsyncSnapshot snapshot3) {
+                  if(snapshot3.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  dairyEgg = snapshot3;
+
+                  return FutureBuilder(
+                    future: FirebaseFirestore.instance.collection("products").where("categoryID", isEqualTo: "meatFish").get(),
+                    builder: (context, AsyncSnapshot snapshot4) {
+                      if(snapshot4.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      meatFish = snapshot4;
+
+                      return FutureBuilder(
+                        future: FirebaseFirestore.instance.collection("products").where("categoryID", isEqualTo: "beverage").get(),
+                        builder: (context, AsyncSnapshot snapshot5) {
+                          if(snapshot5.connectionState == ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          beverage = snapshot5;
+
+                          return Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            margin: EdgeInsets.symmetric(horizontal:20),
+                            child: ListView(
+                              children: <Widget>[
+                                Column(
                                   children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    Column(
                                       children: <Widget>[
-                                        Text(
-                                          "Featured",
-                                          style: TextStyle(
-                                            fontSize: 17,fontWeight: FontWeight.bold),
-                                        ),
-                                        GestureDetector(
-                                          onTap: (){
-                                            Navigator.of(context).pushReplacement(
-                                              MaterialPageRoute(
-                                                builder: (ctx)=>ListProduct(
-                                                  snapShot: mySnapShot,
+                                        Container(
+                                          width: double.infinity,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Column(
+                                                children: <Widget>[
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Container(
+                                                        height: 200,
+                                                        decoration: BoxDecoration(
+                                                          image: DecorationImage(
+                                                            fit: BoxFit.fill,
+                                                            image: AssetImage("images/grocery.png"),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 40,
+                                                      ),
+                                                      Container(
+                                                        height: 50,
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: <Widget>[
+                                                            Text(
+                                                              "Categories",
+                                                              style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        height: 60,
+                                                        child: Row(
+                                                          children: <Widget>[
+                                                            GestureDetector(
+                                                              onTap: (){
+                                                                Navigator.of(context).pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                    builder: (ctx)=>ListProduct(
+                                                                      title: "Fruit and Vegetables",
+                                                                      snapShot: fruitVeg),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: _buildCategoryProduct("apple_icon.png", "#53B175")
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: (){
+                                                                Navigator.of(context).pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                    builder: (ctx)=>ListProduct(
+                                                                      title: "Dairy and Eggs",
+                                                                      snapShot: dairyEgg,)
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: _buildCategoryProduct("eggs.png", "#53B175")
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: (){
+                                                                Navigator.of(context).pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                    builder: (ctx)=>ListProduct(
+                                                                      title: "Meat and Fish",
+                                                                      snapShot: meatFish),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: _buildCategoryProduct("meat.png", "#53B175")
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: (){
+                                                                Navigator.of(context).pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                    builder: (ctx)=>ListProduct(
+                                                                      title: "Beverages",
+                                                                      snapShot: beverage),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: _buildCategoryProduct("soda-bottle.png", "#53B175")
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 30,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                        
+                                              Container(
+                                                height: 50,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: <Widget>[
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "Featured",
+                                                          style: TextStyle(
+                                                            fontSize: 17,fontWeight: FontWeight.bold),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                            Navigator.of(context).pushReplacement(
+                                                              MaterialPageRoute(
+                                                                builder: (ctx)=>ListProduct(
+                                                                  title: "Featured",
+                                                                  snapShot: mySnapShot,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: Text(
+                                                            "See all",
+                                                            style: TextStyle(
+                                                              fontSize: 18,fontWeight: FontWeight.bold),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ]
                                                 ),
                                               ),
-                                            );
-                                          },
-                                          child: Text(
-                                            "See all",
-                                            style: TextStyle(
-                                              fontSize: 18,fontWeight: FontWeight.bold),
-                                          ),
+                                              Row(
+                                                children: <Widget>[
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      Row(children: <Widget>[
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                            Navigator.of(context).pushReplacement(
+                                                              MaterialPageRoute(
+                                                                builder: (ctx)=>DetailScreen(
+                                                                  name: chickenData!.name, 
+                                                                  description: chickenData!.description, 
+                                                                  price: chickenData!.price,
+                                                                  image: chickenData!.image,
+                                                                  packing: chickenData!.packing
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: SingleProduct(
+                                                            name: chickenData!.name, 
+                                                            price: chickenData!.price, 
+                                                            image: chickenData!.image
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                            Navigator.of(context).pushReplacement(
+                                                              MaterialPageRoute(
+                                                                builder: (ctx)=>DetailScreen(
+                                                                  name: beefData!.name, 
+                                                                  description: beefData!.description, 
+                                                                  price: beefData!.price,
+                                                                  image: beefData!.image,
+                                                                  packing: beefData!.packing
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                          child: SingleProduct(
+                                                            name: beefData!.name, 
+                                                            price: beefData!.price, 
+                                                            image: beefData!.image
+                                                          ),
+                                                        ),
+                                                      ],
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                            
+                                        ],
+                                        ),
                                         ),
                                       ],
-                                    )
-                                  ]
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(children: <Widget>[
-                                        GestureDetector(
-                                          onTap: (){
-                                            Navigator.of(context).pushReplacement(
-                                              MaterialPageRoute(
-                                                builder: (ctx)=>DetailScreen(
-                                                  name: chickenData!.name, 
-                                                  description: chickenData!.description, 
-                                                  price: chickenData!.price,
-                                                  image: chickenData!.image,
-                                                  packing: chickenData!.packing
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: SingleProduct(
-                                            name: chickenData!.name, 
-                                            price: chickenData!.price, 
-                                            image: chickenData!.image
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: (){
-                                            Navigator.of(context).pushReplacement(
-                                              MaterialPageRoute(
-                                                builder: (ctx)=>DetailScreen(
-                                                  name: beefData!.name, 
-                                                  description: beefData!.description, 
-                                                  price: beefData!.price,
-                                                  image: beefData!.image,
-                                                  packing: beefData!.packing
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: SingleProduct(
-                                            name: beefData!.name, 
-                                            price: beefData!.price, 
-                                            image: beefData!.image
-                                          ),
-                                        ),
-                                      ],
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-      
-                        ],
-                        ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                              ],
+                            ),
+                          );
+                        }
+                      );
+                    }
+                  );
+                }
+              );
+            }
           );
         }
       ),

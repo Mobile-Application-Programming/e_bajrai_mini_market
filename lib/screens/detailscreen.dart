@@ -54,9 +54,7 @@ class _DetailScreenState extends State<DetailScreen> {
           onPressed: (){
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (ctx)=>ListProduct(
-                  snapShot: mySnapShot,
-                ),
+                builder: (ctx)=>HomePage()
               ),
             );
           },
