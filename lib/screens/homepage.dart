@@ -16,8 +16,13 @@ var dairyEgg;
 var meatFish;
 var beverage;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
 Widget _buildCategoryProduct(String image, String color) {
   return CircleAvatar(
     maxRadius: 40,
@@ -32,12 +37,81 @@ Widget _buildCategoryProduct(String image, String color) {
   );
 }
 
+bool homeColor=true;
+bool cartColor=false;
+bool aboutColor=false;
+
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text(
+                "JohnDoe", 
+                style: TextStyle(color: Colors.black)
+              ),
+              currentAccountPicture: CircleAvatar(
+                radius: 20,
+                backgroundColor: HexColor("#53B175"),
+                backgroundImage: AssetImage("images/user.jpg"),
+              ), 
+              decoration: BoxDecoration(
+                color: Color(0xfff2f2f2)
+              ),
+              accountEmail: Text(
+                "johndoe@gmail.com",
+                style: TextStyle(color: Colors.black)
+              ),
+            ),
+            ListTile(
+              selected: homeColor,
+              onTap: (){
+                setState(() {
+                  homeColor=true;
+                  cartColor=false;
+                  aboutColor=false;
+                });
+              },
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+            ),
+            ListTile(
+              selected: cartColor,
+              onTap: (){
+                setState(() {
+                  cartColor=true;
+                  homeColor=false;
+                  aboutColor=false;
+                });
+              },
+              leading: Icon(Icons.shopping_cart),
+              title: Text("Cart"),
+            ),
+            ListTile(
+              selected: aboutColor,
+              onTap: (){
+                setState(() {
+                  aboutColor=true;
+                  cartColor=false;
+                  homeColor=false;
+                });
+              },
+              leading: Icon(Icons.info),
+              title: Text("About"),
+            ),
+            ListTile(
+              onTap: (){},
+              leading: Icon(Icons.exit_to_app),
+              title: Text("Logout"),
+            ),
+          ]
+        )
+      ),
       appBar: AppBar(
         title: Text(
           "HomePage",
@@ -52,7 +126,7 @@ Widget _buildCategoryProduct(String image, String color) {
             color:Colors.black,
           ),
           onPressed: (){
-            //_key.currentState.openDrawer();
+            _key.currentState?.openDrawer();
         }),
         actions: <Widget>[
           IconButton(
