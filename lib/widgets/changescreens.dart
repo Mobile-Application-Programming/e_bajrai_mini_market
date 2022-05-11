@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class ChangeScreen extends StatelessWidget {
   final String? whichAccount;
@@ -20,7 +19,7 @@ class ChangeScreen extends StatelessWidget {
           child: Text(
             name!,
             style: TextStyle(
-              color: Colors.cyan,
+              color: HexColor("#53B175"),
               fontSize: 20,
             ),
           ),

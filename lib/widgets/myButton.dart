@@ -1,5 +1,5 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class MyButton extends StatelessWidget {
   final Function()? onPressed;
@@ -13,7 +13,7 @@ class MyButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          primary: Colors.lightBlue, // Background color
+          primary: HexColor("#53B175"), // Background color
         ),
         child: Text(name!),
       ),

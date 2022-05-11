@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/product.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:e_bajrai_mini_market/screens/login.dart';
 
 Product ? chickenData;
 Product ? beefData;
@@ -105,7 +106,9 @@ bool aboutColor=false;
               title: Text("About"),
             ),
             ListTile(
-              onTap: (){},
+              onTap: (){
+                logout(context);
+              },
               leading: Icon(Icons.exit_to_app),
               title: Text("Logout"),
             ),
@@ -421,5 +424,14 @@ bool aboutColor=false;
         }
       ),
     );
+  }
+
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+              return Login();
+            })
+        );
   }
 }

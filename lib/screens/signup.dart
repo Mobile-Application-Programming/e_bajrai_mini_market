@@ -1,4 +1,5 @@
-import 'dart:html';
+
+import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:e_bajrai_mini_market/screens/login.dart';
 import 'package:e_bajrai_mini_market/widgets/changescreens.dart';
 import 'package:e_bajrai_mini_market/widgets/mytextformfield.dart';
@@ -7,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/myButton.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -27,9 +29,12 @@ class _SignUpState extends State<SignUp> {
     final FormState _form = _formKey.currentState!;
     if (!_form.validate()) {
       try {
-        UserCredential result = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email!, password: password!);
-        print(result.user?.uid);
+        UserCredential result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email!, password: password!);
+        Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+              return HomePage();
+            })
+        );
       } on PlatformException catch (e) {
         print(e.message.toString());
         ScaffoldMessenger.of(context)
@@ -114,18 +119,28 @@ class _SignUpState extends State<SignUp> {
 
   Widget _buildBottomPart() {
     return Container(
-      height: 400,
+      height: 440,
       margin: EdgeInsets.symmetric(horizontal: 10),
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _buildAllTextFormField(),
-          MyButton(
-            name: "SignUp",
-            onPressed: () {
-              validation();
-            },
+          Container(
+            height: 45,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                validation();
+              },
+              style: ElevatedButton.styleFrom(
+                primary: HexColor("#53B175"), // Background color
+              ),
+              child: Text("Sign Up"),
+            ),
+          ),
+          SizedBox(
+            height: 10,
           ),
           ChangeScreen(
             name: "Login",
@@ -155,7 +170,7 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 220,
+                    height: 200,
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,

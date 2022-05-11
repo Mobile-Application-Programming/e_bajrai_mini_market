@@ -1,12 +1,14 @@
-import 'dart:html';
+import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:e_bajrai_mini_market/screens/signup.dart';
 import 'package:e_bajrai_mini_market/widgets/changescreens.dart';
 import 'package:e_bajrai_mini_market/widgets/mytextformfield.dart';
 import 'package:e_bajrai_mini_market/widgets/passwordtextformfield.dart';
+import 'package:e_bajrai_mini_market/screens/homepageAdmin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/myButton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -23,24 +25,61 @@ RegExp regExp = new RegExp(p);
 String? email;
 String? password;
 
-Future<void> validation() async {
-  final FormState _form = _formKey.currentState!;
-  if (!_form.validate()) {
-    try {
-      UserCredential result = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email!, password: password!);
-      print(result.user?.uid);
-    } on PlatformException catch (e) {
-      print(e.message.toString());
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.message!)));
-    }
-  } else {}
-}
+// Future<void> validation() async {
+//   final FormState _form = _formKey.currentState!;
+//   if (!_form.validate()) {
+//     try {
+//       UserCredential result = await FirebaseAuth.instance
+//           .signInWithEmailAndPassword(email: email!, password: password!);
+//       print(result.user?.uid);
+//     } on PlatformException catch (e) {
+//       print(e.message.toString());
+//       ScaffoldMessenger.of(context)
+//           .showSnackBar(SnackBar(content: Text(e.message!)));
+//     }
+//   } else {}
+// }
 
 bool obserText = true;
 
 class _LoginState extends State<Login> {
+
+  Future<void> validation() async {
+    final FormState _form = _formKey.currentState!;
+    if (!_form.validate()) {
+      try {
+        UserCredential result = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email!, password: password!);
+        
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          String uid = user.uid;
+          String? email = user.email; 
+
+          if (uid == "o1W8l04z6kP6bz71AbGTE0Gmnz32") {
+            Navigator.of(context)
+              .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return HomepageAdmin();
+                  })
+              );
+          }
+          else {
+            Navigator.of(context)
+              .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return HomePage();
+                  })
+              );
+          }
+        }
+
+      } on PlatformException catch (e) {
+        print(e.message.toString());
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.message!)));
+      }
+    } else {}
+  }
+
   Widget _buildAllPart() {
     return Container(
         height: 300,
@@ -57,6 +96,12 @@ class _LoginState extends State<Login> {
             ),
             MyTextFormField(
               name: "Email",
+              onChanged: (value) {
+                setState(() {
+                  email = value;
+                  print(email);
+                });
+              },
               validator: (value) {
                 if (value == "") {
                   return "Please fill Email";
@@ -68,6 +113,11 @@ class _LoginState extends State<Login> {
             ),
             PasswordTextFormField(
               obserText: obserText,
+              onChanged: (value) {
+                setState(() {
+                  password = value;
+                });
+              },
               name: "Password",
               validator: (value) {
                 if (value == "") {
@@ -84,11 +134,18 @@ class _LoginState extends State<Login> {
                 });
               },
             ),
-            MyButton(
-              onPressed: () {
-                validation();
-              },
-              name: "Login",
+            Container(
+              height: 45,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  validation();
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: HexColor("#53B175"), // Background color
+                ),
+                child: Text("Login"),
+              ),
             ),
             ChangeScreen(
               name: "SignUp",
