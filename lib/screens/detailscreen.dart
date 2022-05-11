@@ -215,17 +215,32 @@ class _DetailScreenState extends State<DetailScreen> {
                       Container(
                         height: 60,
                         width: double.infinity,
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
+                        // child: RaisedButton(
+                        //   shape: RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.circular(20)
+                        //   ),
+                        //   color: HexColor("#53B175"),
+                        //   child: Text(
+                        //     "Add To Cart", 
+                        //     style: myStyle,
+                        //   ),
+                        //   onPressed: (){}
+                        // )
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            backgroundColor: MaterialStateProperty.all(HexColor("#53B175"))
                           ),
-                          color: HexColor("#53B175"),
                           child: Text(
-                            "Add To Cart", 
+                            "Add To Cart",
                             style: myStyle,
                           ),
-                          onPressed: (){}
-                        )
+                          onPressed: (){},
+                        ),
                       )
                     ],
                   ),
