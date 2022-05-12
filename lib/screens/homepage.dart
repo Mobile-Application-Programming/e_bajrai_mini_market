@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
+import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
