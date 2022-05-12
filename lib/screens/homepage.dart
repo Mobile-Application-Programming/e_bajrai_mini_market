@@ -8,6 +8,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../model/product.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/login.dart';
+import 'package:e_bajrai_mini_market/provider/product_provider.dart';
+
+
+product_provider.getUserModel();
 
 Product ? chickenData;
 Product ? beefData;
@@ -38,22 +42,13 @@ Widget _buildCategoryProduct(String image, String color) {
   );
 }
 
-bool homeColor=true;
-bool cartColor=false;
-bool aboutColor=false;
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _key,
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
+Widget _buildUserAccountsDrawerHeader(){
+  List<UserModel> userModel = productProvider.userModelList;
+  return Column(
+    children: userModel.map((e){
+      UserAccountsDrawerHeader(
               accountName: Text(
-                "JohnDoe", 
+                e.userName, 
                 style: TextStyle(color: Colors.black)
               ),
               currentAccountPicture: CircleAvatar(
@@ -65,10 +60,30 @@ bool aboutColor=false;
                 color: Color(0xfff2f2f2)
               ),
               accountEmail: Text(
-                "johndoe@gmail.com",
+                e.userEmail,
                 style: TextStyle(color: Colors.black)
               ),
-            ),
+            );
+    }).toList()
+  );
+
+}
+
+bool homeColor=true;
+bool cartColor=false;
+bool aboutColor=false;
+bool profileColor=false;
+
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _key,
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            _buildUserAccountsDrawerHeader(),
             ListTile(
               selected: homeColor,
               onTap: (){
@@ -76,6 +91,8 @@ bool aboutColor=false;
                   homeColor=true;
                   cartColor=false;
                   aboutColor=false;
+                  profileColor=false;
+
                 });
               },
               leading: Icon(Icons.home),
@@ -88,6 +105,7 @@ bool aboutColor=false;
                   cartColor=true;
                   homeColor=false;
                   aboutColor=false;
+                  profileColor=false;
                 });
               },
               leading: Icon(Icons.shopping_cart),
@@ -100,10 +118,29 @@ bool aboutColor=false;
                   aboutColor=true;
                   cartColor=false;
                   homeColor=false;
+                  profileColor=false;
                 });
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (ctx)=>ProfileScreen(),
+                  ),
+                );
               },
               leading: Icon(Icons.info),
               title: Text("About"),
+            ),
+            ListTile(
+              selected: profileColor,
+              onTap: (){
+                setState(() {
+                  aboutColor=false;
+                  cartColor=false;
+                  homeColor=false;
+                  profileColor=true;
+                });
+              },
+              leading: Icon(Icons.info),
+              title: Text("Profile"),
             ),
             ListTile(
               onTap: (){
