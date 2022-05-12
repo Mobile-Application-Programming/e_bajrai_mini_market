@@ -120,11 +120,6 @@ bool profileColor=false;
                   homeColor=false;
                   profileColor=false;
                 });
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (ctx)=>ProfileScreen(),
-                  ),
-                );
               },
               leading: Icon(Icons.info),
               title: Text("About"),
@@ -138,6 +133,11 @@ bool profileColor=false;
                   homeColor=false;
                   profileColor=true;
                 });
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (ctx)=>ProfileScreen(),
+                  ),
+                );
               },
               leading: Icon(Icons.info),
               title: Text("Profile"),
