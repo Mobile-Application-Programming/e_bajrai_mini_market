@@ -1,10 +1,15 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, use_key_in_widget_constructors, depend_on_referenced_packages, unused_local_variable, unnecessary_null_comparison
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:e_bajrai_mini_market/provider/product_provider.dart';
 import 'package:e_bajrai_mini_market/model/usermodel.dart';
 import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:e_bajrai_mini_market/provider/product_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 
 
 
@@ -18,6 +23,26 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   get child => null;
   ProductProvider productProvider;
+  File _pickedImage;
+  PickedFile _image;
+  Future <void> getImage({ImageSource source}) async {
+    // ignore: deprecated_member_use
+    _image = await ImagePicker().getImage(source: source);
+    if (_image!=null){
+      _pickedImage = File(_image.path);
+    }
+  }
+
+  String imageUrl;
+
+  void _uploadImage({File image}) async {
+    User user = FirebaseAuth.instance.currentUser;
+    StorageReference storageReference = FirebaseStorage.instance.ref().child("UserImage/${user.uid}");
+    StorageUploadTask uploadTask = storageReference.putFile(image);
+    StorageTaskSnapshot snapshot = await uploadTask.onComplete;
+    imageUrl = await snapshot.ref.getDownloadURL();
+
+  }
 
   Widget _buildSingleContainer({String? startText, String? endText}) {
     return Card(
@@ -60,50 +85,84 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _buildContainerPart(){
     List<UserModel> userModel = productProvider.userModelList;
-    return Column(
-      children: userModel.map((e){
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildSingleContainer(
-              endText: e.userName,
-              startText: "Name",
-            ),
-            _buildSingleContainer(
-              endText: e.userEmail,
-              startText: "Email",
-            ),
-            _buildSingleContainer(
-              endText: e.userPhoneNumber,
-              startText: "Phone Number",
-            ),
-            _buildSingleContainer(
-              endText: e.userGender,
-              startText: "Gender",
-            ),
-          ],
-        ),
-      }).toList(),
+    return Container(
+      height: 300,
+      child: Column(
+        children: userModel.map((e){
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildSingleContainer(
+                endText: e.userName,
+                startText: "Name",
+              ),
+              _buildSingleContainer(
+                endText: e.userEmail,
+                startText: "Email",
+              ),
+              _buildSingleContainer(
+                endText: e.userPhoneNumber,
+                startText: "Phone Number",
+              ),
+              _buildSingleContainer(
+                endText: e.userGender,
+                startText: "Gender",
+              ),
+            ],
+          ),
+        }).toList(),
+      ),
     );
   }
+
+Future<void> myDialogBox(){
+  return showDialog<void>(
+    context: context, 
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: [
+              ListTile(
+                leading: Icon(Icons.camera_alt),
+                title: Text("Pick From Camera"),
+                onTap: (){
+                  getImage(source: ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text("Pick From Gallery"),
+                onTap: (){
+                  getImage(source: ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  );
+}
 
 Widget _buildTextFormFieldPart(){
     List<UserModel> userModel = productProvider.userModelList;
     return Column(
       children: userModel.map((e){
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildSingleTextFormField(name: e.userName),
-                _buildSingleTextFormField(name: e.userEmail),
-                _buildSingleTextFormField(name: e.userPhoneNumber),
-                _buildSingleTextFormField(name: e.userGender),
-              ],
-            )
-          ],
+        return Container(
+          height: 300,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildSingleTextFormField(name: e.userName),
+              _buildSingleTextFormField(name: e.userEmail),
+              _buildSingleTextFormField(name: e.userPhoneNumber),
+              _buildSingleTextFormField(name: e.userGender)
+            ],
+          ),
         ),
       }).toList(),
     );
@@ -155,7 +214,12 @@ Widget _buildTextFormFieldPart(){
                   ),
                 )
               : IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _uploadImage(image: _pickedImage);
+                    setState(() {
+                      edit = false;
+                    });
+                  },
                   icon: Icon(
                     Icons.check,
                     size: 30,
@@ -181,7 +245,7 @@ Widget _buildTextFormFieldPart(){
                     children: [
                       CircleAvatar(
                         maxRadius: 65,
-                        backgroundImage: AssetImage("images/user.jpg"),
+                        backgroundImage: _pickedImage==null? AssetImage("images/user.jpg"): FileImage(_pickedImage),
                       )
                     ],
                   ),
@@ -192,16 +256,21 @@ Widget _buildTextFormFieldPart(){
                         child: Card(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.green,
+                          child: GestureDetector(
+                            onTap: (){
+                              myDialogBox();
+                            },
+                            child: CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              child: Icon(
+                                Icons.camera_alt,
+                                color: Colors.green,
+                              ),
                             ),
                           ),
                         ),
                       )
-                    : SizedBox(),
+                    : Container(),
               ],
             ),
             Container(
