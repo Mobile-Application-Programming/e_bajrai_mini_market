@@ -4,6 +4,7 @@ import 'package:e_bajrai_mini_market/widgets/changescreens.dart';
 import 'package:e_bajrai_mini_market/widgets/mytextformfield.dart';
 import 'package:e_bajrai_mini_market/widgets/passwordtextformfield.dart';
 import 'package:e_bajrai_mini_market/screens/homepageAdmin.dart';
+import 'package:e_bajrai_mini_market/screens/resetpassword.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../widgets/myButton.dart';
@@ -82,7 +83,7 @@ class _LoginState extends State<Login> {
 
   Widget _buildAllPart() {
     return Container(
-        height: 300,
+        height: 400,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -157,7 +158,15 @@ class _LoginState extends State<Login> {
                   ),
                 );
               },
-            )
+            ),
+            Row(
+              mainAxisAlignment:MainAxisAlignment.center,
+              children: [
+              TextButton(
+                child: Text("Forgot Password?"),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPassword())), 
+              )
+            ],)
           ],
         ));
   }

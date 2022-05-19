@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/product.dart';
+import '../model/usermodel.dart';
+import '../provider/product_provider.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/login.dart';
+import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
 import 'package:e_bajrai_mini_market/provider/product_provider.dart';
 
 
-product_provider.getUserModel();
+//product_provider.getUserModel();
 
 Product ? chickenData;
 Product ? beefData;
@@ -42,32 +45,32 @@ Widget _buildCategoryProduct(String image, String color) {
   );
 }
 
-Widget _buildUserAccountsDrawerHeader(){
-  List<UserModel> userModel = productProvider.userModelList;
-  return Column(
-    children: userModel.map((e){
-      UserAccountsDrawerHeader(
-              accountName: Text(
-                e.userName, 
-                style: TextStyle(color: Colors.black)
-              ),
-              currentAccountPicture: CircleAvatar(
-                radius: 20,
-                backgroundColor: HexColor("#53B175"),
-                backgroundImage: AssetImage("images/user.jpg"),
-              ), 
-              decoration: BoxDecoration(
-                color: Color(0xfff2f2f2)
-              ),
-              accountEmail: Text(
-                e.userEmail,
-                style: TextStyle(color: Colors.black)
-              ),
-            );
-    }).toList()
-  );
+// Widget _buildUserAccountsDrawerHeader(){
+//   List<UserModel> userModel = ProductProvider.userModelList;
+//   return Column(
+//     children: UserModel.map((e){
+//       UserAccountsDrawerHeader(
+//               accountName: Text(
+//                 e.userName, 
+//                 style: TextStyle(color: Colors.black)
+//               ),
+//               currentAccountPicture: CircleAvatar(
+//                 radius: 20,
+//                 backgroundColor: HexColor("#53B175"),
+//                 backgroundImage: AssetImage("images/user.jpg"),
+//               ), 
+//               decoration: BoxDecoration(
+//                 color: Color(0xfff2f2f2)
+//               ),
+//               accountEmail: Text(
+//                 e.userEmail,
+//                 style: TextStyle(color: Colors.black)
+//               ),
+//             );
+//     }).toList()
+//   );
 
-}
+// }
 
 bool homeColor=true;
 bool cartColor=false;
@@ -83,7 +86,7 @@ bool profileColor=false;
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            _buildUserAccountsDrawerHeader(),
+            //_buildUserAccountsDrawerHeader(),
             ListTile(
               selected: homeColor,
               onTap: (){
@@ -133,11 +136,11 @@ bool profileColor=false;
                   homeColor=false;
                   profileColor=true;
                 });
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (ctx)=>ProfileScreen(),
-                  ),
-                );
+                // Navigator.of(context).pushReplacement(
+                //   MaterialPageRoute(
+                //     builder: (ctx)=>ProfileScreen(),
+                //   ),
+                // );
               },
               leading: Icon(Icons.info),
               title: Text("Profile"),

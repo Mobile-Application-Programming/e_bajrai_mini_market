@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 class UserModel {
-  String userName, userEmail, userPhoneNumber, userGender;
+  String userName, userEmail, userPhoneNumber;
   UserModel ({
-    @required this.userEmail,
-    @required this.userGender,
-    @required this.userName,
-    @required this.userPhoneNumber,
+    required this.userEmail,
+    required this.userName,
+    required this.userPhoneNumber,
   });
 }

@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:e_bajrai_mini_market/screens/login.dart';
 import 'package:e_bajrai_mini_market/widgets/changescreens.dart';
@@ -22,7 +23,9 @@ String p =
 RegExp regExp = new RegExp(p);
 bool obserText = true;
 String? email;
+String? phoneNumber;
 String? password;
+String? username;
 
 class _SignUpState extends State<SignUp> {
   Future<void> validation() async {
@@ -30,6 +33,12 @@ class _SignUpState extends State<SignUp> {
     if (!_form.validate()) {
       try {
         UserCredential result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email!, password: password!);
+        FirebaseFirestore.instance.collection("User").doc(result.user?.uid).set({
+          "UserName": username,
+          "UserId": result.user?.uid,
+          "UserEmail" : email,
+          "Phone Number" : phoneNumber,
+        });
         Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
               return HomePage();
@@ -51,6 +60,11 @@ class _SignUpState extends State<SignUp> {
         children: <Widget>[
           MyTextFormField(
             name: "UserName",
+            onChanged: (value) {
+              setState(() {
+                username = value;
+              });
+            },
             validator: (value) {
               if (value == "") {
                 return "Please fill UserName";
@@ -65,7 +79,6 @@ class _SignUpState extends State<SignUp> {
             onChanged: (value) {
               setState(() {
                 email = value;
-                print(email);
               });
             },
             validator: (value) {
@@ -83,7 +96,6 @@ class _SignUpState extends State<SignUp> {
             onChanged: (value) {
               setState(() {
                 password = value;
-                print(password);
               });
             },
             validator: (value) {
@@ -103,6 +115,11 @@ class _SignUpState extends State<SignUp> {
           ),
           MyTextFormField(
             name: "Phone Number",
+            onChanged: (value) {
+              setState(() {
+               phoneNumber = value;
+              });
+            },
             validator: (value) {
               if (value == "") {
                 return "Please fill Phone Number";
