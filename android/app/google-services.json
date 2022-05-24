@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1090114089190:android:8b5e301670a418473ecb27",
+        "mobilesdk_app_id": "1:1090114089190:android:a07b5f7d4400297b3ecb27",
         "android_client_info": {
-          "package_name": "com.example.e_bajrai_mini_market"
+          "package_name": "com.example.ebajraiminimarket"
         }
       },
       "oauth_client": [

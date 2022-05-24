@@ -10,6 +10,7 @@ import 'package:e_bajrai_mini_market/screens/listproduct.dart';
 import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:e_bajrai_mini_market/screens/homepageAdmin.dart';
+import 'package:e_bajrai_mini_market/screens/makepayment.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       //       return SignUp();
       //     }
       // }),
-      home: SignUp(),
+      home: MakePayment(),
     );
   }
 }

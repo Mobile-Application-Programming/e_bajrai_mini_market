@@ -1,4 +1,4 @@
-package com.example.e_bajrai_mini_market
+package com.example.ebajraiminimarket
 
 import io.flutter.embedding.android.FlutterActivity
 
