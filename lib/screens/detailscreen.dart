@@ -1,3 +1,4 @@
+import 'package:e_bajrai_mini_market/screens/cartscreen.dart';
 import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -243,7 +244,19 @@ class _DetailScreenState extends State<DetailScreen> {
                               "Add To Cart",
                               style: myStyle,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              productProvider.getCartData(
+                                image: widget.image,
+                                name: widget.name,
+                                price: widget.price,
+                                quantity: count,
+                              );
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (ctx) => CartScreen(),
+                                ),
+                              );
+                            },
                           ))
                     ],
                   ),

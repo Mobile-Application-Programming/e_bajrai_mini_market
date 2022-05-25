@@ -31,7 +31,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: AssetImage("images/${widget.image}")
+                      image: NetworkImage(widget.image),
                     )
                   ),
                 )
