@@ -2,6 +2,8 @@ import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
+import '../provider/product_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailScreen extends StatefulWidget {
   final String image;
@@ -21,6 +23,7 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   int count = 1;
+  ProductProvider productProvider;
   Widget _buildSizeProduct({required String name}) {
     return Container(
       height: 60,
@@ -43,6 +46,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    productProvider = Provider.of<ProductProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

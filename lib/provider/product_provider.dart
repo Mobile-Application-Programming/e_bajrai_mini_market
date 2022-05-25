@@ -12,6 +12,33 @@ class ProductProvider with ChangeNotifier {
 
   List<CartModel> checkOutModelList = [];
   late CartModel checkOutModel;
+
+  void getCartData({
+    String name,
+    String image,
+    String size,
+    String color,
+    int quantity,
+    double price,
+  }) {
+    cartModel = CartModel(
+        price: price,
+        name: name,
+        image: image,
+        size: size,
+        color: color,
+        quantity: quantity);
+    cartModelList.add(cartModel);
+  }
+
+  List<CartModel> get getCartModelList {
+    return List.from(cartModelList);
+  }
+
+  int get getCartModelListLength {
+    return cartModelList.length;
+  }
+
   List<UserModel> userModelList = [];
   late UserModel userModel;
   Future<void> getUserData() async {
