@@ -1,19 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
+import 'package:e_bajrai_mini_market/screens/listproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:e_bajrai_mini_market/model/product.dart';
 import 'package:e_bajrai_mini_market/provider/product_provider.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
-//import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 
 class SearchProduct extends SearchDelegate<void> {
+
+  CollectionReference _firebaseFirestore = 
+    FirebaseFirestore.instance.collection("products");
+
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [
+    return <Widget>[
       IconButton(
         icon: Icon(Icons.close),
         onPressed: () {
-          query = "";
+          query = " ";
         },
-      )
+      ),
     ];
   }
 
@@ -22,48 +29,98 @@ class SearchProduct extends SearchDelegate<void> {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, null);
-      },
+        Navigator.of(context).pop();
+      }
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    ProductProvider providerProvider = Provider.of(context);
-    List<Product> searchProduct = providerProvider.searchProductList(query);
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firebaseFirestore.snapshots().asBroadcastStream(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if(!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        }
+        else {
+          
+          if (snapshot.data!.docs.where(
+            (QueryDocumentSnapshot<Object?> element) => element['name']
+            .toString()
+            .toLowerCase()
+            .contains(query.toLowerCase())).isEmpty){
+              return Center(child: Text("No search query found"));
+            }
+          else {
+            return ListView(
+            children: [
+              ...snapshot.data!.docs.where(
+                (QueryDocumentSnapshot<Object?> element) => element['name']
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase())).map((QueryDocumentSnapshot<Object?> data) {
+                  final String name = data.get('name');
+                  final double price = data['price'];
+                  final String image = data['image'];
+                  final String packing= data['packing'];
+                  final String description = data['description'];
 
-    return GridView.count(
-      childAspectRatio: 0.87,
-      crossAxisCount: 2,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      children: providerProvider
-          .map((e) => SingleProduct(
-                image: e.image,
-                name: e.name,
-                price: e.price,
-              ))
-          .toList(),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (ctx) => DetailScreen(
+                              name: name,
+                              description: description,
+                              price: price,
+                              image: image,
+                              packing: packing),
+                        ),
+                      );
+                    },
+                    child: SingleProduct(
+                        name: name,
+                        price: price,
+                        image: image),
+                  );
+
+                  //return SingleProduct(name: name, price: price, image: image);
+
+                  // return ListTile(
+                  //   onTap: (){
+                  //     Navigator.push(
+                  //       context, 
+                  //       MaterialPageRoute(
+                  //         builder: (context) => DetailScreen(
+                  //           name: name, 
+                  //           description: description, 
+                  //           price: price, 
+                  //           image: image, 
+                  //           packing: packing
+                  //         )
+                  //       )
+                  //     );
+                  //   },
+                  //   title: Text(name),
+                  //   // leading: CircleAvatar(
+                  //   //   backgroundImage: 
+                  //   // ),
+                  //   subtitle: Text(price),
+                  // );
+                })
+            ]
+          );
+          }
+
+
+        }
+      }
     );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    ProductProvider providerProvider = Provider.of(context);
-    List<Product> searchProduct = providerProvider.searchProductList(query);
-
-    return GridView.count(
-      childAspectRatio: 0.67,
-      crossAxisCount: 2,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      children: searchProduct
-          .map((e) => SingleProduct(
-                image: e.image,
-                name: e.name,
-                price: e.price,
-              ))
-          .toList(),
-    );
+    return Center(child: Text("Search anything here"));
   }
+
 }

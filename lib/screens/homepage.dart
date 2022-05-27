@@ -8,13 +8,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/product.dart';
 import '../model/usermodel.dart';
-import '../provider/product_provider.dart';
+import 'package:e_bajrai_mini_market/provider/product_provider.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/login.dart';
 import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
 import 'package:e_bajrai_mini_market/provider/product_provider.dart';
-
+import 'package:e_bajrai_mini_market/provider/category_provider.dart';
+import 'package:e_bajrai_mini_market/screens/searchproduct.dart';
+import 'package:get/get.dart';
 import '../widgets/checkout_singleproduct.dart';
+import 'package:provider/provider.dart';
+import 'package:e_bajrai_mini_market/screens/cartscreen.dart';
 
 //product_provider.getUserModel();
 
@@ -31,7 +35,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+//late CategoryProvider categoryProvider;
+
 class _HomePageState extends State<HomePage> {
+
+  bool searchState = false;
+
   Widget _buildCategoryProduct(String image, String color) {
     return CircleAvatar(
       maxRadius: 40,
@@ -54,9 +63,10 @@ class _HomePageState extends State<HomePage> {
   //       ),
   //       currentAccountPicture: CircleAvatar(
   //         backgroundColor: Colors.white,
-  //         backgroundImage: e.userImage == null
-  //             ? AssetImage("images/userImage.png")
-  //             : NetworkImage(e.userImage),
+  //         backgroundImage: AssetImage("images/userImage.png"),
+  //         // backgroundImage: e.userImage == null
+  //         //     ? AssetImage("images/userImage.png")
+  //         //     : NetworkImage(e.userImage),
   //       ),
   //       decoration: BoxDecoration(color: Color(0xfff2f2f2)),
   //       accountEmail: Text(e.userEmail, style: TextStyle(color: Colors.black)),
@@ -73,6 +83,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // return Provider<CategoryProvider>(
+    //   create: (context) => CategoryProvider(),
+    //   builder: (context, child) {
+    // categoryProvider=Provider.of<CategoryProvider>(context);
+    // categoryProvider.getfruitVegData();
+
     return Scaffold(
       key: _key,
       drawer: Drawer(
@@ -92,6 +109,24 @@ class _HomePageState extends State<HomePage> {
           title: Text("Home"),
         ),
         ListTile(
+          selected: profileColor,
+          onTap: () {
+            setState(() {
+              aboutColor = false;
+              cartColor = false;
+              homeColor = false;
+              profileColor = true;
+            });
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (ctx)=>ProfileScreen(),
+              ),
+            );
+          },
+          leading: Icon(Icons.account_circle),
+          title: Text("Profile"),
+        ),
+        ListTile(
           selected: cartColor,
           onTap: () {
             setState(() {
@@ -100,6 +135,7 @@ class _HomePageState extends State<HomePage> {
               aboutColor = false;
               profileColor = false;
             });
+            Get.to(() => CartScreen());
           },
           leading: Icon(Icons.shopping_cart),
           title: Text("Cart"),
@@ -118,24 +154,6 @@ class _HomePageState extends State<HomePage> {
           title: Text("About"),
         ),
         ListTile(
-          selected: profileColor,
-          onTap: () {
-            setState(() {
-              aboutColor = false;
-              cartColor = false;
-              homeColor = false;
-              profileColor = true;
-            });
-            // Navigator.of(context).pushReplacement(
-            //   MaterialPageRoute(
-            //     builder: (ctx)=>ProfileScreen(),
-            //   ),
-            // );
-          },
-          leading: Icon(Icons.info),
-          title: Text("Profile"),
-        ),
-        ListTile(
           onTap: () {
             logout(context);
           },
@@ -144,7 +162,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ])),
       appBar: AppBar(
-        title: Text(
+         title: Text(
           "HomePage",
           style: TextStyle(color: Colors.black),
         ),
@@ -165,7 +183,9 @@ class _HomePageState extends State<HomePage> {
                 Icons.search,
                 color: Colors.black,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                showSearch(context: context, delegate: SearchProduct());
+              }),
           IconButton(
               icon: Icon(
                 Icons.notifications_none,
@@ -322,7 +342,7 @@ class _HomePageState extends State<HomePage> {
                                                                   child: Row(
                                                                     children: <
                                                                         Widget>[
-                                                                      GestureDetector(
+                                                                        GestureDetector(
                                                                           onTap:
                                                                               () {
                                                                             Navigator.of(context).pushReplacement(
@@ -511,6 +531,8 @@ class _HomePageState extends State<HomePage> {
                 });
           }),
     );
+    // }
+    // );
   }
 
   Future<void> logout(BuildContext context) async {

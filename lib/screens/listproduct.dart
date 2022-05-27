@@ -2,11 +2,12 @@ import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
+import '../model/product.dart';
 
 class ListProduct extends StatelessWidget {
   final snapShot;
   final String title;
-  ListProduct({required this.title, this.snapShot});
+  ListProduct({required this.title, required this.snapShot});
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +101,19 @@ class ListProduct extends StatelessWidget {
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10),
                   ),
+                  // child: GridView.count(
+                  //   crossAxisCount: 2,
+                  //   scrollDirection: Axis.vertical,
+                  //   children: snapShot
+                  //     .map(
+                  //       (e) => SingleProduct(
+                  //       name: e.name, 
+                  //       price: e.price, 
+                  //       image: e.image
+                  //       ),
+                  //       )
+                  //     .toList(),
+                  // ),
                 )
               ],
             ),

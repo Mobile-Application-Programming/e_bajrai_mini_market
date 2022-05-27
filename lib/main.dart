@@ -11,11 +11,16 @@ import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:e_bajrai_mini_market/screens/homepageAdmin.dart';
 import 'package:e_bajrai_mini_market/screens/makepayment.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:e_bajrai_mini_market/provider/product_provider.dart';
+import 'package:e_bajrai_mini_market/provider/category_provider.dart';
+import 'package:e_bajrai_mini_market/controller/cart_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(GetMaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +42,30 @@ class MyApp extends StatelessWidget {
       //       return SignUp();
       //     }
       // }),
-      home: MakePayment(),
+      home: SignUp(),
     );
   }
 }
+
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(),
+//       debugShowCheckedModeBanner: false,
+//       home: MultiProvider(
+//         providers: [
+//           //Provider<ProductProvider>(create: (ctx)=>ProductProvider()),
+//           Provider<CategoryProvider>(create: (ctx)=>CategoryProvider()),
+//         ],
+//         child: SignUp()
+//       ),
+//     );
+//   }
+// }
+
+

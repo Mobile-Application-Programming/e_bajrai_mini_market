@@ -251,48 +251,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
       resizeToAvoidBottomInset: true,
       key: _scaffoldKey,
       backgroundColor: Color(0xfff8f8f8),
-      appBar: AppBar(
-        leading: edit == true
-            ? NotificationButton()
-            : IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.black45,
-                  size: 30,
-                ),
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (ctx) => HomePage(),
-                      ),
-                    );
-                  });
-                },
-              ),
-        backgroundColor: Colors.white,
-        actions: [
-          edit == false
-              ? IconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    size: 30,
-                    color: HexColor("#53B175"),
-                  ),
-                  onPressed: () {},
-                )
-              : IconButton(
-                  icon: Icon(
-                    Icons.check,
-                    size: 30,
-                    color: HexColor("#53B175"),
-                  ),
-                  onPressed: () {
-                    vaildation();
-                  },
-                ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   leading: edit == true
+      //       ? NotificationButton()
+      //       : IconButton(
+      //           icon: Icon(
+      //             Icons.arrow_back,
+      //             color: Colors.black45,
+      //             size: 30,
+      //           ),
+      //           onPressed: () {
+      //             setState(() {
+      //               Navigator.of(context).pushReplacement(
+      //                 MaterialPageRoute(
+      //                   builder: (ctx) => HomePage(),
+      //                 ),
+      //               );
+      //             });
+      //           },
+      //         ),
+      //   backgroundColor: Colors.white,
+      //   actions: [
+      //     edit == false
+      //         ? IconButton(
+      //             icon: Icon(
+      //               Icons.edit,
+      //               size: 30,
+      //               color: HexColor("#53B175"),
+      //             ),
+      //             onPressed: () {},
+      //           )
+      //         : IconButton(
+      //             icon: Icon(
+      //               Icons.check,
+      //               size: 30,
+      //               color: HexColor("#53B175"),
+      //             ),
+      //             onPressed: () {
+      //               vaildation();
+      //             },
+      //           ),
+      //   ],
+      // ),
       body: centerCircle == false
           ? ListView(
               children: [
@@ -300,13 +300,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     stream: FirebaseFirestore.instance
                         .collection("User")
                         .snapshots(),
-                    builder: (context, snapshot) {
+                    builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
                           child: CircularProgressIndicator(),
                         );
                       }
                       var myDoc = snapshot.data.docs;
+
                       myDoc.forEach((checkDocs) {
                         if (checkDocs.data()["UserId"] == userUid) {
                           userModel = UserModel(
@@ -335,13 +336,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     children: [
                                       CircleAvatar(
                                           maxRadius: 65,
-                                          backgroundImage: _pickedImage == null
-                                              ? userModel.userImage == null
-                                                  ? const AssetImage(
-                                                      "images/user.png")
-                                                  : NetworkImage(
-                                                      userModel.userImage)
-                                              : FileImage(_pickedImage)),
+                                          backgroundImage: AssetImage("images/user.png")
+                                          // backgroundImage: _pickedImage == null
+                                          //     ? userModel.userImage == null
+                                          //         ? const AssetImage(
+                                          //             "images/user.png")
+                                          //         : NetworkImage(
+                                          //             userModel.userImage)
+                                          //     : FileImage(_pickedImage)
+                                      ),
                                     ],
                                   ),
                                 ),

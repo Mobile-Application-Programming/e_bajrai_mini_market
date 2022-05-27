@@ -5,11 +5,11 @@ class CartSingleProduct extends StatefulWidget {
   final String image;
   final int quantity;
   final double price;
-  CartSingleProduct({this.quantity, this.image, this.name, this.price});
+  CartSingleProduct({required this.quantity, required this.image, required this.name, required this.price});
   @override
   State<CartSingleProduct> createState() => _CartSingleProductState();
 }
-int count;
+int count=0;
 
 TextStyle myStyle = TextStyle(fontSize: 18);
 class _CartSingleProductState extends State<CartSingleProduct> {
@@ -34,7 +34,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                       image: NetworkImage(widget.image),
                     )
                   ),
-                )
+                ),
                 Container(
                   height: 140,
                   width: 200,

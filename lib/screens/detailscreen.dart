@@ -5,6 +5,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
 import '../provider/product_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'package:e_bajrai_mini_market/controller/cart_controller.dart';
+import 'package:e_bajrai_mini_market/controller/product_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_bajrai_mini_market/model/product.dart';
 
 class DetailScreen extends StatefulWidget {
   final String image;
@@ -23,8 +28,13 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
+
   int count = 1;
-  ProductProvider productProvider;
+  late int index;
+  final cartController = Get.put(CartController());
+  final productController = Get.put(ProductController());
+   
+  //late ProductProvider productProvider;
   Widget _buildSizeProduct({required String name}) {
     return Container(
       height: 60,
@@ -40,6 +50,34 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
+  List<Product> productList1=[];
+  late Product productData1;
+  late Product productBetul;
+
+  void productList() async {
+
+      final productData = FirebaseFirestore.instance.collection('products');
+      final QuerySnapshot result = await productData.get();
+
+      result.docs.forEach((res) async {
+        productData1 = Product( 
+          name: res["name"],
+          description: res["description"],
+          price: res["price"],
+          quantity: res["quantity"],
+          image: res["image"],
+          categoryID: res["categoryID"],
+          packing: res["packing"],
+        );
+        productList1.add(productData1);
+      });
+      index = productList1.indexWhere((element) => element.name == widget.name);
+
+      productBetul = productList1[index];
+      print(productBetul.name);
+
+  }
+
   final TextStyle myStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
@@ -47,7 +85,9 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    productProvider = Provider.of<ProductProvider>(context);
+    //productProvider = Provider.of<ProductProvider>(context);
+    //productController.getAllProducts();
+    productList();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -173,63 +213,54 @@ class _DetailScreenState extends State<DetailScreen> {
                           ],
                         ),
                       ),
-                      Text(
-                        "Quantity",
-                        style: myStyle,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 40,
-                        width: 130,
-                        decoration: BoxDecoration(
-                          color: HexColor("#cae8d5"),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            GestureDetector(
-                              child: Icon(Icons.remove),
-                              onTap: () {
-                                setState(() {
-                                  if (count > 1) {
-                                    count--;
-                                  }
-                                });
-                              },
-                            ),
-                            Text(
-                              count.toString(),
-                              style: myStyle,
-                            ),
-                            GestureDetector(
-                              child: Icon(Icons.add),
-                              onTap: () {
-                                setState(() {
-                                  count++;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Text(
+                      //   "Quantity",
+                      //   style: myStyle,
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Container(
+                      //   height: 40,
+                      //   width: 130,
+                      //   decoration: BoxDecoration(
+                      //     color: HexColor("#cae8d5"),
+                      //     borderRadius: BorderRadius.circular(20),
+                      //   ),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //     children: <Widget>[
+                      //       GestureDetector(
+                      //         child: Icon(Icons.remove),
+                      //         onTap: () {
+                      //           setState(() {
+                      //             if (count > 1) {
+                      //               count--;
+                      //             }
+                      //           });
+                      //         },
+                      //       ),
+                      //       Text(
+                      //         count.toString(),
+                      //         style: myStyle,
+                      //       ),
+                      //       GestureDetector(
+                      //         child: Icon(Icons.add),
+                      //         onTap: () {
+                      //           setState(() {
+                      //             count++;
+                      //           });
+                      //         },
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 35,
                       ),
                       Container(
                           height: 60,
                           width: double.infinity,
-                          //child: RaisedButton(
-                          //  shape: RoundedRectangleBorder(
-                          //    borderRadius: BorderRadius.circular(20)),
-                          // color: HexColor("#53B175"),
-                          // child: Text(
-                          //   "Add To Cart",
-                          //   style: myStyle,
-                          // ),
-                          //onPressed: () {})
                           child: ElevatedButton(
                             style: ButtonStyle(
                                 shape: MaterialStateProperty.all<
@@ -245,17 +276,18 @@ class _DetailScreenState extends State<DetailScreen> {
                               style: myStyle,
                             ),
                             onPressed: () {
-                              productProvider.getCartData(
-                                image: widget.image,
-                                name: widget.name,
-                                price: widget.price,
-                                quantity: count,
-                              );
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (ctx) => CartScreen(),
-                                ),
-                              );
+                              cartController.addProduct(productList1[index]);
+                              // productProvider.getCartData(
+                              //   image: widget.image,
+                              //   name: widget.name,
+                              //   price: widget.price,
+                              //   quantity: count,
+                              // );
+                              // Navigator.of(context).pushReplacement(
+                              //   MaterialPageRoute(
+                              //     builder: (ctx) => CartScreen(),
+                              //   ),
+                              // );
                             },
                           ))
                     ],
