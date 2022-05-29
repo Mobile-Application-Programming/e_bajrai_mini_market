@@ -117,11 +117,11 @@ class _HomePageState extends State<HomePage> {
               homeColor = false;
               profileColor = true;
             });
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (ctx)=>ProfileScreen(),
-              ),
-            );
+            // Navigator.of(context).pushReplacement(
+            //   MaterialPageRoute(
+            //     builder: (ctx)=>ProfileScreen(),
+            //   ),
+            // );
           },
           leading: Icon(Icons.account_circle),
           title: Text("Profile"),

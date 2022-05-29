@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_bajrai_mini_market/controller/cart_controller.dart';
+import 'package:e_bajrai_mini_market/controller/user_controller.dart';
+import 'package:e_bajrai_mini_market/model/cartmodel.dart';
 import 'package:e_bajrai_mini_market/model/product.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -7,10 +11,18 @@ import 'package:hexcolor/hexcolor.dart';
 class CartProducts extends StatelessWidget {
   final cartController = Get.put(CartController());
   final CartController controller = Get.find();
+  final userController1 = Get.put(UserController());
   CartProducts({Key? key}) : super(key:key);
+  UserController userController = UserController.instance;
+
+  void listenCartItem() {
+    userController.setToListen();
+  }
 
   @override
   Widget build(BuildContext context) {
+    listenCartItem();
+    //print(userController.userModel.value.cart!.toList()[0].name);
     return Obx(
       () => SizedBox(
         height: 550, 
@@ -22,6 +34,8 @@ class CartProducts extends StatelessWidget {
               product: controller.products.keys.toList()[index],
               quantity: controller.products.values.toList()[index],
               index: index,
+              //cartItem: userController.userModel.value.cart.values.toList()[index],
+              cartItem: userController.userModel.value.cart[index],
             );
           }
         )
@@ -35,6 +49,7 @@ class CartProductCard extends StatelessWidget {
   final Product product;
   final int quantity;
   final int index;
+  final CartModel cartItem;
 
   const CartProductCard({
     Key? key,
@@ -42,6 +57,7 @@ class CartProductCard extends StatelessWidget {
     required this.product,
     required this.quantity,
     required this.index,
+    required this.cartItem,
   }) : super(key:key);
 
   @override
@@ -69,7 +85,7 @@ class CartProductCard extends StatelessWidget {
           ),
           IconButton(
             onPressed: (){
-              controller.removeProduct(product);
+              controller.removeProduct(product, cartItem);
             }, 
             icon: Icon(
               Icons.remove_circle,
@@ -83,7 +99,7 @@ class CartProductCard extends StatelessWidget {
           ),
           IconButton(
             onPressed: (){
-              controller.addProduct(product);
+              controller.increaseQuantity(product, cartItem);
             }, 
             icon: Icon(
               Icons.add_circle,

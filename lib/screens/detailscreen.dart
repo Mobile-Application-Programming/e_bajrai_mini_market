@@ -1,3 +1,6 @@
+import 'package:e_bajrai_mini_market/controller/user_controller.dart';
+import 'package:e_bajrai_mini_market/model/cartmodel.dart';
+import 'package:e_bajrai_mini_market/model/usermodel.dart';
 import 'package:e_bajrai_mini_market/screens/cartscreen.dart';
 import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +36,8 @@ class _DetailScreenState extends State<DetailScreen> {
   late int index;
   final cartController = Get.put(CartController());
   final productController = Get.put(ProductController());
+  final userController1 = Get.put(UserController());
+  UserController userController = UserController.instance;
    
   //late ProductProvider productProvider;
   Widget _buildSizeProduct({required String name}) {
@@ -53,6 +58,9 @@ class _DetailScreenState extends State<DetailScreen> {
   List<Product> productList1=[];
   late Product productData1;
   late Product productBetul;
+  late final CartModel cartItem;
+  late UserModel user1;
+  List<UserModel> userList1=[];
 
   void productList() async {
 
@@ -75,7 +83,40 @@ class _DetailScreenState extends State<DetailScreen> {
 
       productBetul = productList1[index];
       print(productBetul.name);
+      
+      //print(userController.listenToUser().toList());
+      //userController.listenToUser();
+      //userController.userModel.value.cart!.map((cartItem) => cuba(cartItem)).toList();
+      userController.setToListen();
+      print(userController.listenToUser().isEmpty);
+      print(userController.userModel.value.userName);
+      print(userController.userModel.value.cart.toList()[0].name);
+      print(userController.firebaseUser?.uid);
+  }
 
+  void cuba() async {
+
+      final productData = FirebaseFirestore.instance.collection('User');
+      final QuerySnapshot result = await productData.get();
+
+      result.docs.forEach((res) async {
+        user1 = UserModel( 
+          userEmail:res["UserName"],
+          userName:res["UserEmail"],
+          userImage:res["Phone Number"],
+          userPhoneNumber:res["userImage"],
+          userAddress:res["userAddress"],
+          cart:res["cart"],
+        );
+        userList1.add(user1);
+      });
+      
+      
+      //print(userController.listenToUser().toList());
+      //userController.listenToUser();
+      //userController.userModel.value.cart!.map((cartItem) => cuba(cartItem)).toList();
+      print(userController.userModel.value.userName);
+      print(userController.firebaseUser?.uid);
   }
 
   final TextStyle myStyle = TextStyle(

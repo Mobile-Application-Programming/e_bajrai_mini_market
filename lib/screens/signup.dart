@@ -38,6 +38,7 @@ class _SignUpState extends State<SignUp> {
           "UserId": result.user?.uid,
           "UserEmail" : email,
           "Phone Number" : phoneNumber,
+          "Cart": []
         });
         Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) {
