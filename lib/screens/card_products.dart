@@ -72,7 +72,7 @@ class CartProductCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 40, 
-            backgroundImage: AssetImage("images/${product.image}")
+            backgroundImage: NetworkImage(product.image),
           ),
           SizedBox(
             width: 20,

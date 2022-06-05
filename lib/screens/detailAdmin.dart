@@ -1,36 +1,32 @@
 import 'package:e_bajrai_mini_market/controller/user_controller.dart';
 import 'package:e_bajrai_mini_market/model/cartmodel.dart';
 import 'package:e_bajrai_mini_market/model/usermodel.dart';
-import 'package:e_bajrai_mini_market/screens/cartscreen.dart';
-import 'package:e_bajrai_mini_market/screens/homepage.dart';
+import 'package:e_bajrai_mini_market/screens/homepageAdmin.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:e_bajrai_mini_market/screens/listproduct.dart';
-import '../provider/product_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:e_bajrai_mini_market/controller/cart_controller.dart';
 import 'package:e_bajrai_mini_market/controller/product_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_bajrai_mini_market/model/product.dart';
 
-class DetailScreen extends StatefulWidget {
+class DetailAdmin extends StatefulWidget {
   final String image;
   final String name;
   final String description;
   final String packing;
   final double price;
-  DetailScreen(
+  DetailAdmin(
       {required this.name,
       required this.description,
       required this.price,
       required this.image,
       required this.packing});
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<DetailAdmin> createState() => _DetailAdminState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _DetailAdminState extends State<DetailAdmin> {
 
   int count = 1;
   late int index;
@@ -105,7 +101,7 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
           onPressed: () {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => HomePage()),
+              MaterialPageRoute(builder: (ctx) => HomepageAdmin()),
             );
           },
         ),
@@ -217,83 +213,59 @@ class _DetailScreenState extends State<DetailScreen> {
                           ],
                         ),
                       ),
-                      // Text(
-                      //   "Quantity",
-                      //   style: myStyle,
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Container(
-                      //   height: 40,
-                      //   width: 130,
-                      //   decoration: BoxDecoration(
-                      //     color: HexColor("#cae8d5"),
-                      //     borderRadius: BorderRadius.circular(20),
-                      //   ),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //     children: <Widget>[
-                      //       GestureDetector(
-                      //         child: Icon(Icons.remove),
-                      //         onTap: () {
-                      //           setState(() {
-                      //             if (count > 1) {
-                      //               count--;
-                      //             }
-                      //           });
-                      //         },
-                      //       ),
-                      //       Text(
-                      //         count.toString(),
-                      //         style: myStyle,
-                      //       ),
-                      //       GestureDetector(
-                      //         child: Icon(Icons.add),
-                      //         onTap: () {
-                      //           setState(() {
-                      //             count++;
-                      //           });
-                      //         },
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                       SizedBox(
                         height: 35,
                       ),
-                      Container(
-                          height: 60,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              height: 60,
+                              width: 165,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        HexColor("#53B175"))),
+                                child: Text(
+                                  "Edit Product",
+                                  style: myStyle,
                                 ),
-                                backgroundColor: MaterialStateProperty.all(
-                                    HexColor("#53B175"))),
-                            child: Text(
-                              "Add To Cart",
-                              style: myStyle,
-                            ),
-                            onPressed: () {
-                              cartController.addProduct(productList1[index]);
-                              // productProvider.getCartData(
-                              //   image: widget.image,
-                              //   name: widget.name,
-                              //   price: widget.price,
-                              //   quantity: count,
-                              // );
-                              // Navigator.of(context).pushReplacement(
-                              //   MaterialPageRoute(
-                              //     builder: (ctx) => CartScreen(),
-                              //   ),
-                              // );
-                            },
-                          ))
+                                onPressed: () {
+                                  cartController.addProduct(productList1[index]);
+                                },
+                              )
+                          ),
+                          Container(width: 10),
+                          Container(
+                              height: 60,
+                              width: 165,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        HexColor("#53B175"))),
+                                child: Text(
+                                  "Delete Product",
+                                  style: myStyle,
+                                ),
+                                onPressed: () {
+                                  cartController.addProduct(productList1[index]);
+                                },
+                              )
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
