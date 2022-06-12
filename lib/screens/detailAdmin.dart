@@ -1,6 +1,7 @@
 import 'package:e_bajrai_mini_market/controller/user_controller.dart';
 import 'package:e_bajrai_mini_market/model/cartmodel.dart';
 import 'package:e_bajrai_mini_market/model/usermodel.dart';
+import 'package:e_bajrai_mini_market/screens/editProduct.dart';
 import 'package:e_bajrai_mini_market/screens/homepageAdmin.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -16,11 +17,15 @@ class DetailAdmin extends StatefulWidget {
   final String description;
   final String packing;
   final double price;
+  final int quantity;
+  final String categoryID;
   DetailAdmin(
       {required this.name,
       required this.description,
       required this.price,
+      required this.quantity,
       required this.image,
+      required this.categoryID,
       required this.packing});
   @override
   State<DetailAdmin> createState() => _DetailAdminState();
@@ -34,6 +39,10 @@ class _DetailAdminState extends State<DetailAdmin> {
   final productController = Get.put(ProductController());
   final userController1 = Get.put(UserController());
   UserController userController = UserController.instance;
+  final ProductController productController1 = Get.find();
+  late String productID;
+  
+  get console => null;
    
   //late ProductProvider productProvider;
   Widget _buildSizeProduct({required String name}) {
@@ -74,6 +83,10 @@ class _DetailAdminState extends State<DetailAdmin> {
           packing: res["packing"],
         );
         productList1.add(productData1);
+        //console.log('${res.id} => ${res.data()}');
+        if (res["name"]==widget.name) {
+          productID = res.id;
+        }
       });
       index = productList1.indexWhere((element) => element.name == widget.name);
   }
@@ -213,6 +226,44 @@ class _DetailAdminState extends State<DetailAdmin> {
                           ],
                         ),
                       ),
+                      Text(
+                        "Quantity",
+                        style: myStyle,
+                      ),
+                      Container(
+                        height: 80,
+                        child: Wrap(
+                          children: <Widget>[
+                            Text(
+                              widget.quantity.toString(),
+                              style: TextStyle(
+                                fontSize: 15,
+                                height: 2.5,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Text(
+                        "Category",
+                        style: myStyle,
+                      ),
+                      Container(
+                        height: 80,
+                        child: Wrap(
+                          children: <Widget>[
+                            if(widget.categoryID == "meatFish")...[
+                              Text("Meat and Fish",style: TextStyle(fontSize: 15,height: 2.5)),
+                            ]else if(widget.categoryID == "fruitVeg")...[
+                              Text("Fruit and Vegetables",style: TextStyle(fontSize: 15,height: 2.5)),
+                            ]else if(widget.categoryID == "dairyEgg")...[
+                              Text("Dairy and Eggs",style: TextStyle(fontSize: 15,height: 2.5)),
+                            ]else...[
+                              Text("Beverages",style: TextStyle(fontSize: 15,height: 2.5))
+                            ]
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: 35,
                       ),
@@ -237,7 +288,18 @@ class _DetailAdminState extends State<DetailAdmin> {
                                   style: myStyle,
                                 ),
                                 onPressed: () {
-                                  cartController.addProduct(productList1[index]);
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(builder: (ctx) => EditProduct(
+                                      productID: productID, 
+                                      name: widget.name, 
+                                      description: widget.description, 
+                                      price: widget.price, 
+                                      quantity: widget.quantity,
+                                      packing: widget.packing, 
+                                      categoryID: widget.categoryID,
+                                      image: widget.image
+                                    )),
+                                  );
                                 },
                               )
                           ),
@@ -260,7 +322,10 @@ class _DetailAdminState extends State<DetailAdmin> {
                                   style: myStyle,
                                 ),
                                 onPressed: () {
-                                  cartController.addProduct(productList1[index]);
+                                  productController1.deleteProduct(productID);
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(builder: (ctx) => HomepageAdmin()),
+                                  );
                                 },
                               )
                           ),

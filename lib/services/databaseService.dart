@@ -29,4 +29,18 @@ class DatabaseService {
 
 
   } 
+
+  Future<void> editProduct(Product product, String productID) {
+    Get.snackbar(
+      "Product Updated", 
+      "The product has been successfully updated to the system",
+      snackPosition: SnackPosition.BOTTOM,
+      duration: Duration(seconds:2),
+      backgroundColor: HexColor("#2f3330"),
+      colorText: HexColor("#fafafa"),
+    );
+
+    final docProduct = _firebaseFirestore.collection("products").doc(productID);
+    return docProduct.update(product.toMap());
+  } 
 }

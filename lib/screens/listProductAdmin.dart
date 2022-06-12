@@ -80,7 +80,9 @@ class ListProductAdmin extends StatelessWidget {
                                   name: snapShot.data.docs[index]["name"],
                                   description: snapShot.data.docs[index]["description"],
                                   price: snapShot.data.docs[index]["price"],
+                                  quantity: snapShot.data.docs[index]["quantity"],
                                   image: snapShot.data.docs[index]["image"],
+                                  categoryID: snapShot.data.docs[index]["categoryID"],
                                   packing: snapShot.data.docs[index]["packing"]),
                             ),
                           );

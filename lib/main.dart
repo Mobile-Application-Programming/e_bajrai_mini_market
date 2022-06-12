@@ -1,4 +1,5 @@
 import 'package:e_bajrai_mini_market/screens/addProduct.dart';
+import 'package:e_bajrai_mini_market/screens/editProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       //       return SignUp();
       //     }
       // }),
-      home: SignUp(),
+      home: HomepageAdmin(),
     );
   }
 }

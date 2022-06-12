@@ -366,7 +366,9 @@ class _HomepageAdminState extends State<HomepageAdmin> {
                                                                           name: mySnapShot.data.docs[index]["name"],
                                                                           description: mySnapShot.data.docs[index]["description"],
                                                                           price: mySnapShot.data.docs[index]["price"],
+                                                                          quantity: mySnapShot.data.docs[index]["quantity"],
                                                                           image: mySnapShot.data.docs[index]["image"],
+                                                                          categoryID: mySnapShot.data.docs[index]["categoryID"],
                                                                           packing: mySnapShot.data.docs[index]["packing"]),
                                                                     ),
                                                                   );
