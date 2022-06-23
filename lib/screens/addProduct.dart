@@ -151,6 +151,10 @@ class _AddProductState extends State<AddProduct> {
                       hint: Text("Product Category"),
                       items: categories.map(buildMenuItem).toList(),
                       onChanged: (value) => setState(() { 
+                        // if(value=="Fruit and Vegetables") {this.value = "fruitVeg";}
+                        // else if(value=="Dairy and Eggs") {this.value = "dairyEgg";}
+                        // else if(value=="Meat and Fish") {this.value = "meatFish";}
+                        // else if(value=="Beverages") {this.value = "beverage";}
                         this.value = value;
                         productController.newProduct.update(
                           'categoryID',

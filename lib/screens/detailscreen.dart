@@ -280,7 +280,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               style: myStyle,
                             ),
                             onPressed: () {
-                              cartController.addProduct(productList1[index]);
+                              cartController.addProductToCart(productList1[index]);
                               // productProvider.getCartData(
                               //   image: widget.image,
                               //   name: widget.name,

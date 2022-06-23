@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       //       return SignUp();
       //     }
       // }),
-      home: HomepageAdmin(),
+      home: SignUp(),
     );
   }
 }
