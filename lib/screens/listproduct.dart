@@ -101,19 +101,6 @@ class ListProduct extends StatelessWidget {
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10),
                   ),
-                  // child: GridView.count(
-                  //   crossAxisCount: 2,
-                  //   scrollDirection: Axis.vertical,
-                  //   children: snapShot
-                  //     .map(
-                  //       (e) => SingleProduct(
-                  //       name: e.name, 
-                  //       price: e.price, 
-                  //       image: e.image
-                  //       ),
-                  //       )
-                  //     .toList(),
-                  // ),
                 )
               ],
             ),

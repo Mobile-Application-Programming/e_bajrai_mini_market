@@ -1,54 +1,67 @@
-// import 'package:equatable/equatable.dart';
+import 'package:e_bajrai_mini_market/model/cartmodel.dart';
+import 'package:e_bajrai_mini_market/model/orderitem.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-// class Order extends Equatable {
-//   final String name;
-//   final String description;
-//   double price;
-//   int quantity;
-//   final String image;
-//   final String categoryID;
-//   final String packing;
+class OrderModel {
 
-//   const Order({
-//     required this.name,
-//     required this.description,
-//     required this.price,
-//     required this.quantity,
-//     required this.image,
-//     required this.categoryID,
-//     required this.packing,
-//   })
-// }
+  static const ORDERID = "OrderID";
+  static const ORDERDATE = "OrderDate";
+  static const USERNAME = "UserName";
+  static const USEREMAIL = "UserEmail";
+  static const USERPHONENUMBER = "Phone Number";
+  static const USERADDRESS = "userAddress";
+  static const TOTALCOST = "totalCost";
+  static const ORDERITEM = "orderItem";
 
-// Order copyWith({
-//   int? id,
-//   int? quantity,
-//   double? price,
-//   String? name,
-//   String? description,
-//   String? image,
-//   String? categoryID,
-//   String? packing,
-// }) {
-//   return Order{
-//     id: id ?? this.id,
-//     quantity: quantity ?? this.id,
-//     price: price ?? this.quantity,
-//     name: name ?? this.name,
-//     description: description ?? this.description,
-//     image: image ?? this.image,
-//     packing: packing ?? this.packing,
-//   };
-// }
+  late String orderID, orderDate, userName, userEmail, userPhoneNumber, userAddress;
+  late double totalCost;
+  late List<OrderItem> orderItem;
+  
+  OrderModel({
+    required this.orderID,
+    required this.orderDate,
+    required this.userEmail,
+    required this.userName,
+    required this.userPhoneNumber,
+    required this.userAddress,
+    required this.totalCost,
+    required this.orderItem,
+  });
 
-// factory Order.fromSnapshot(DocumentSnapshot snap) {
-//     id: snap['id'],
-//     quantity: snap['quantity'],
-//     price: snap['picture'],
-//     name: snap['name']
-//     description: snap['description'];
-//     image: snap['image'],
-//     packing: pack['sakinah'];
-// }
+  Map<String, dynamic> toMap() {
+    return {
+      'orderID': orderID, 
+      'orderDate': orderDate, 
+      'userEmail': userEmail, 
+      'userName': userName, 
+      'userPhoneNumber': userPhoneNumber, 
+      'userAddress': userAddress,
+      'totalCost': totalCost, 
+      'orderItem': orderItem,
+    };
+  }
 
+  OrderModel.fromSnapshot(DocumentSnapshot snapshot) { 
+    orderID = snapshot[ORDERID];
+    orderDate= snapshot[ORDERDATE];
+    userEmail = snapshot[USERNAME];
+    userName = snapshot[USEREMAIL];
+    userPhoneNumber = snapshot[USERPHONENUMBER];
+    userAddress = snapshot[USERADDRESS];
+    totalCost = snapshot[TOTALCOST];
+    orderItem = _convertOrderItems(snapshot[ORDERITEM] ?? []);
+  }
 
+  List<OrderItem> _convertOrderItems(List orderFomDb){
+    List<OrderItem> _result = [];
+    if(orderFomDb.length > 0){
+      orderFomDb.forEach((element) {
+      _result.add(OrderItem.fromMap(element));
+    });
+    }
+    return _result;
+  }
+
+  List<Map>? orderItemsToJson() => orderItem.map((item) => item.toJson()).toList();
+}

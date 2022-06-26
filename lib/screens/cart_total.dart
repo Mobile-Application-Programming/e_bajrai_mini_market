@@ -23,7 +23,7 @@ class CartTotal extends StatelessWidget {
               ),
             ),
             Text(
-              '\RM${controller.total}',
+              '\RM${cartController.totalCartPrice.value.toStringAsFixed(2)}',
               style: TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold, 

@@ -1,5 +1,9 @@
 import 'package:e_bajrai_mini_market/screens/addProduct.dart';
+import 'package:e_bajrai_mini_market/screens/buildPdf.dart';
+import 'package:e_bajrai_mini_market/screens/customerOrder.dart';
 import 'package:e_bajrai_mini_market/screens/editProduct.dart';
+import 'package:e_bajrai_mini_market/screens/generatePdf.dart';
+import 'package:e_bajrai_mini_market/screens/salesReport.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,30 +48,9 @@ class MyApp extends StatelessWidget {
       //       return SignUp();
       //     }
       // }),
-      home: HomepageAdmin(),
+      home: SignUp(),
     );
   }
 }
-
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(),
-//       debugShowCheckedModeBanner: false,
-//       home: MultiProvider(
-//         providers: [
-//           //Provider<ProductProvider>(create: (ctx)=>ProductProvider()),
-//           Provider<CategoryProvider>(create: (ctx)=>CategoryProvider()),
-//         ],
-//         child: SignUp()
-//       ),
-//     );
-//   }
-// }
 
 

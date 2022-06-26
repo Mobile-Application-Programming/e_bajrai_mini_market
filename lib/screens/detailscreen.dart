@@ -217,48 +217,6 @@ class _DetailScreenState extends State<DetailScreen> {
                           ],
                         ),
                       ),
-                      // Text(
-                      //   "Quantity",
-                      //   style: myStyle,
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // Container(
-                      //   height: 40,
-                      //   width: 130,
-                      //   decoration: BoxDecoration(
-                      //     color: HexColor("#cae8d5"),
-                      //     borderRadius: BorderRadius.circular(20),
-                      //   ),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      //     children: <Widget>[
-                      //       GestureDetector(
-                      //         child: Icon(Icons.remove),
-                      //         onTap: () {
-                      //           setState(() {
-                      //             if (count > 1) {
-                      //               count--;
-                      //             }
-                      //           });
-                      //         },
-                      //       ),
-                      //       Text(
-                      //         count.toString(),
-                      //         style: myStyle,
-                      //       ),
-                      //       GestureDetector(
-                      //         child: Icon(Icons.add),
-                      //         onTap: () {
-                      //           setState(() {
-                      //             count++;
-                      //           });
-                      //         },
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                       SizedBox(
                         height: 35,
                       ),
@@ -280,7 +238,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               style: myStyle,
                             ),
                             onPressed: () {
-                              cartController.addProduct(productList1[index]);
+                              cartController.addProductToCart(productList1[index]);
                               // productProvider.getCartData(
                               //   image: widget.image,
                               //   name: widget.name,

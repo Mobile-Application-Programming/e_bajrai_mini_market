@@ -5,6 +5,7 @@ import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
 import 'package:e_bajrai_mini_market/screens/listProductAdmin.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
 import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
+import 'package:e_bajrai_mini_market/screens/salesReport.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -106,6 +107,9 @@ class _HomepageAdminState extends State<HomepageAdmin> {
               homeColor = false;
               profileColor = false;
             });
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (ctx) => SalesReport()),
+            );
           },
           leading: Icon(Icons.analytics_outlined),
           title: Text("Sales Analytics"),

@@ -25,11 +25,11 @@ class UserModel {
 
   UserModel.fromSnapshot(DocumentSnapshot snapshot) { 
     
-    userEmail = snapshot[USERNAME];
-    userName = snapshot[USEREMAIL];
-    //userImage = snapshot[USERIMAGE];
+    userEmail = snapshot[USEREMAIL];
+    userName = snapshot[USERNAME];
+    userImage = snapshot[USERIMAGE];
     userPhoneNumber = snapshot[USERPHONENUMBER];
-    //userAddress = snapshot[USERADDRESS];
+    userAddress = snapshot[USERADDRESS];
     cart = _convertCartItems(snapshot[CART] ?? []);
   }
 

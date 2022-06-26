@@ -83,30 +83,6 @@ class SearchProduct extends SearchDelegate<void> {
                         price: price,
                         image: image),
                   );
-
-                  //return SingleProduct(name: name, price: price, image: image);
-
-                  // return ListTile(
-                  //   onTap: (){
-                  //     Navigator.push(
-                  //       context, 
-                  //       MaterialPageRoute(
-                  //         builder: (context) => DetailScreen(
-                  //           name: name, 
-                  //           description: description, 
-                  //           price: price, 
-                  //           image: image, 
-                  //           packing: packing
-                  //         )
-                  //       )
-                  //     );
-                  //   },
-                  //   title: Text(name),
-                  //   // leading: CircleAvatar(
-                  //   //   backgroundImage: 
-                  //   // ),
-                  //   subtitle: Text(price),
-                  // );
                 })
             ]
           );

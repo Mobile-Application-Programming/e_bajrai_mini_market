@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:e_bajrai_mini_market/screens/customerOrder.dart';
 import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
 import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
@@ -149,9 +150,12 @@ class _HomePageState extends State<HomePage> {
               homeColor = false;
               profileColor = false;
             });
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (ctx) => CustomerOrder()),
+            );
           },
-          leading: Icon(Icons.info),
-          title: Text("About"),
+          leading: Icon(Icons.list_alt_sharp),
+          title: Text("Orders"),
         ),
         ListTile(
           onTap: () {

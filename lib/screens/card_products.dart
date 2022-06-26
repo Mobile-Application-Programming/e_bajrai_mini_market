@@ -27,14 +27,13 @@ class CartProducts extends StatelessWidget {
       () => SizedBox(
         height: 550, 
         child: ListView.builder(
-          itemCount: controller.products.length,
+          itemCount: userController.userModel.value.cart.length,
           itemBuilder: (BuildContext context, int index) {
             return CartProductCard(
               controller: controller,
-              product: controller.products.keys.toList()[index],
-              quantity: controller.products.values.toList()[index],
+              product: userController.userModel.value.cart[index],
+              quantity: userController.userModel.value.cart[index].quantity,
               index: index,
-              //cartItem: userController.userModel.value.cart.values.toList()[index],
               cartItem: userController.userModel.value.cart[index],
             );
           }
@@ -46,7 +45,7 @@ class CartProducts extends StatelessWidget {
 
 class CartProductCard extends StatelessWidget {
   final CartController controller;
-  final Product product;
+  final CartModel product;
   final int quantity;
   final int index;
   final CartModel cartItem;
@@ -82,10 +81,11 @@ class CartProductCard extends StatelessWidget {
               product.name,
               style: TextStyle(fontSize: 17)
             ),
+            
           ),
           IconButton(
             onPressed: (){
-              controller.removeProduct(product, cartItem);
+              controller.decreaseQuantity(cartItem);
             }, 
             icon: Icon(
               Icons.remove_circle,
@@ -99,7 +99,7 @@ class CartProductCard extends StatelessWidget {
           ),
           IconButton(
             onPressed: (){
-              controller.increaseQuantity(product, cartItem);
+              controller.increaseQuantity(cartItem);
             }, 
             icon: Icon(
               Icons.add_circle,
