@@ -27,7 +27,7 @@ class _CheckOutState extends State<CheckOut> {
   final CheckoutController controller2 = Get.find();
   
   TextStyle myStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 17,
   );
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   
@@ -40,11 +40,11 @@ class _CheckOutState extends State<CheckOut> {
       children: <Widget>[
         Text(
           startName,
-          style: myStyle,
+          style: TextStyle(fontSize: 15),
         ),
         Text(
           endName,
-          style: myStyle,
+          style: TextStyle(fontSize: 15),
         ),
       ],
     );
@@ -119,15 +119,6 @@ class _CheckOutState extends State<CheckOut> {
             );
           },
         ),
-        actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.notifications_none,
-            color: Colors.black,
-          ),
-          onPressed: () {},
-        ),
-      ],
       ),
       bottomNavigationBar: Container(
           height: 70,

@@ -1,8 +1,6 @@
 import 'package:e_bajrai_mini_market/screens/addProduct.dart';
-import 'package:e_bajrai_mini_market/screens/buildPdf.dart';
 import 'package:e_bajrai_mini_market/screens/customerOrder.dart';
 import 'package:e_bajrai_mini_market/screens/editProduct.dart';
-import 'package:e_bajrai_mini_market/screens/generatePdf.dart';
 import 'package:e_bajrai_mini_market/screens/salesReport.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,8 +17,6 @@ import 'package:e_bajrai_mini_market/screens/homepageAdmin.dart';
 import 'package:e_bajrai_mini_market/screens/makepayment.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:e_bajrai_mini_market/provider/product_provider.dart';
-import 'package:e_bajrai_mini_market/provider/category_provider.dart';
 import 'package:e_bajrai_mini_market/controller/cart_controller.dart';
 
 void main() async {

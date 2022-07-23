@@ -18,28 +18,13 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 String p =
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 RegExp regExp = new RegExp(p);
 String? email;
 String? password;
-
-// Future<void> validation() async {
-//   final FormState _form = _formKey.currentState!;
-//   if (!_form.validate()) {
-//     try {
-//       UserCredential result = await FirebaseAuth.instance
-//           .signInWithEmailAndPassword(email: email!, password: password!);
-//       print(result.user?.uid);
-//     } on PlatformException catch (e) {
-//       print(e.message.toString());
-//       ScaffoldMessenger.of(context)
-//           .showSnackBar(SnackBar(content: Text(e.message!)));
-//     }
-//   } else {}
-// }
 
 bool obserText = true;
 
@@ -59,14 +44,14 @@ class _LoginState extends State<Login> {
 
           if (uid == "o1W8l04z6kP6bz71AbGTE0Gmnz32") {
             Navigator.of(context)
-              .push(MaterialPageRoute(builder: (BuildContext context) {
+              .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
                     return HomepageAdmin();
                   })
               );
           }
           else {
             Navigator.of(context)
-              .push(MaterialPageRoute(builder: (BuildContext context) {
+              .pushReplacement(MaterialPageRoute(builder: (BuildContext context) {
                     return HomePage();
                   })
               );
@@ -83,7 +68,7 @@ class _LoginState extends State<Login> {
 
   Widget _buildAllPart() {
     return Container(
-        height: 400,
+        height: 380,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

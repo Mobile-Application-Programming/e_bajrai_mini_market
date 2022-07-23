@@ -61,12 +61,12 @@ class SingleOrder extends StatelessWidget {
                 children: [
                   Text(
                     orderItem[0].name,
-                    style: TextStyle(fontSize: 17)
+                    style: TextStyle(fontSize: 15)
                   ),
                   SizedBox(height: 10),
                   Text(
                     "RM ${orderItem[0].price.toStringAsFixed(2)}",
-                    style: TextStyle(fontSize: 17)
+                    style: TextStyle(fontSize: 15)
                   ),
                 ],
               ),
@@ -78,7 +78,7 @@ class SingleOrder extends StatelessWidget {
           Text(
             "View details",
             style: TextStyle(
-              fontSize: 17
+              fontSize: 15
             ),
           ),
           SizedBox(height: 5),
@@ -90,13 +90,13 @@ class SingleOrder extends StatelessWidget {
               Text(
                 "${orderItem.length} items",
                 style: TextStyle(
-                  fontSize: 17
+                  fontSize: 15
                 ),
               ),
               Text(
                 "Order Total: RM ${totalCost.toStringAsFixed(2)}",
                 style: TextStyle(
-                  fontSize: 17
+                  fontSize: 15
                 ),
               ),
             ],

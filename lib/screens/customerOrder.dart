@@ -6,6 +6,7 @@ import 'package:e_bajrai_mini_market/controller/product_controller.dart';
 import 'package:e_bajrai_mini_market/model/orderitem.dart';
 import 'package:e_bajrai_mini_market/screens/detailOrder.dart';
 import 'package:e_bajrai_mini_market/screens/homepage.dart';
+import 'package:e_bajrai_mini_market/widgets/drawer.dart';
 import 'package:e_bajrai_mini_market/widgets/singleOrder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,8 @@ class CustomerOrder extends StatefulWidget {
 
 class _CustomerOrderState extends State<CustomerOrder> {
 
+  GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
 
@@ -45,18 +48,18 @@ class _CustomerOrderState extends State<CustomerOrder> {
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
+          key: _key,
+          drawer: DrawerCustomer(),
           appBar: AppBar(
             backgroundColor: HexColor("#53B175"),
             leading: IconButton(
               icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+                Icons.menu,
+                color: Colors.black,
               ),
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (ctx) => HomePage()),
-                );
-              },
+                _key.currentState?.openDrawer();
+              }
             ),
             bottom: TabBar(
               indicatorColor: Color(0xff1976d2),

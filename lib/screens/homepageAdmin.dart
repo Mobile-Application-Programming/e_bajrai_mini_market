@@ -4,24 +4,18 @@ import 'package:e_bajrai_mini_market/screens/detailAdmin.dart';
 import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
 import 'package:e_bajrai_mini_market/screens/listProductAdmin.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
-import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
 import 'package:e_bajrai_mini_market/screens/salesReport.dart';
+import 'package:e_bajrai_mini_market/widgets/admindrawer.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/product.dart';
 import '../model/usermodel.dart';
-import 'package:e_bajrai_mini_market/provider/product_provider.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/login.dart';
-import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
-import 'package:e_bajrai_mini_market/provider/product_provider.dart';
-import 'package:e_bajrai_mini_market/provider/category_provider.dart';
 import 'package:e_bajrai_mini_market/screens/searchproduct.dart';
 import 'package:get/get.dart';
-import '../widgets/checkout_singleproduct.dart';
-import 'package:provider/provider.dart';
 import 'package:e_bajrai_mini_market/screens/cartscreen.dart';
 
 //product_provider.getUserModel();
@@ -68,60 +62,7 @@ class _HomepageAdminState extends State<HomepageAdmin> {
 
     return Scaffold(
       key: _key,
-      drawer: Drawer(
-          child: ListView(children: <Widget>[
-        //_buildUserAccountsDrawerHeader(),
-        ListTile(
-          selected: homeColor,
-          onTap: () {
-            setState(() {
-              homeColor = true;
-              cartColor = false;
-              aboutColor = false;
-              profileColor = false;
-            });
-          },
-          leading: Icon(Icons.home),
-          title: Text("Homepage"),
-        ),
-        ListTile(
-          selected: cartColor,
-          onTap: () {
-            setState(() {
-              cartColor = true;
-              homeColor = false;
-              aboutColor = false;
-              profileColor = false;
-            });
-            Get.to(() => CartScreen());
-          },
-          leading: Icon(Icons.assignment_sharp),
-          title: Text("Orders"),
-        ),
-        ListTile(
-          selected: aboutColor,
-          onTap: () {
-            setState(() {
-              aboutColor = true;
-              cartColor = false;
-              homeColor = false;
-              profileColor = false;
-            });
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => SalesReport()),
-            );
-          },
-          leading: Icon(Icons.analytics_outlined),
-          title: Text("Sales Analytics"),
-        ),
-        ListTile(
-          onTap: () {
-            logout(context);
-          },
-          leading: Icon(Icons.exit_to_app),
-          title: Text("Logout"),
-        ),
-      ])),
+      drawer: DrawerAdmin(),
       appBar: AppBar(
          title: Text(
           "Admin Homepage",
@@ -138,22 +79,6 @@ class _HomepageAdminState extends State<HomepageAdmin> {
             onPressed: () {
               _key.currentState?.openDrawer();
             }),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                showSearch(context: context, delegate: SearchProduct());
-              }),
-          IconButton(
-              icon: Icon(
-                Icons.notifications_none,
-                color: Colors.black,
-              ),
-              onPressed: () {}),
-        ],
       ),
       body: FutureBuilder(
           future: FirebaseFirestore.instance.collection("products").get(),
@@ -333,7 +258,7 @@ class _HomepageAdminState extends State<HomepageAdmin> {
                                                 label: Text(
                                                   "Add New Product",
                                                   style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: 17,
                                                     fontWeight: FontWeight.bold,
                                                     color: HexColor("#53B175")
                                                   ),

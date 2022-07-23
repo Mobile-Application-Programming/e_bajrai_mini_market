@@ -18,14 +18,14 @@ class CartTotal extends StatelessWidget {
             Text(
               'Total',
               style: TextStyle(
-                fontSize: 19,
+                fontSize: 16,
                 fontWeight: FontWeight.bold, 
               ),
             ),
             Text(
               '\RM${cartController.totalCartPrice.value.toStringAsFixed(2)}',
               style: TextStyle(
-                fontSize: 19,
+                fontSize: 16,
                 fontWeight: FontWeight.bold, 
               ),
             ),

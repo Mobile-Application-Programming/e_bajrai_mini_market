@@ -98,7 +98,7 @@ class _AddProductState extends State<AddProduct> {
                         const Text(
                           "Add Image",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -111,7 +111,7 @@ class _AddProductState extends State<AddProduct> {
                 const Text(
                   "Product Information",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -182,7 +182,7 @@ class _AddProductState extends State<AddProduct> {
                     child: Text(
                       "Add Product",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -211,7 +211,7 @@ class _AddProductState extends State<AddProduct> {
     value: item,
     child: Text(
       item,
-      style: TextStyle(fontSize: 17),
+      style: TextStyle(fontSize: 15),
     )
   );
 
@@ -222,8 +222,8 @@ class _AddProductState extends State<AddProduct> {
     ) {
     return TextFormField(
       decoration: InputDecoration(
-        labelStyle: TextStyle(fontSize: 17),
-        hintText: hintText
+        labelStyle: TextStyle(fontSize: 15),
+        hintText: hintText, 
       ),
       onChanged: (value) {
         productController.newProduct.update(
@@ -246,7 +246,7 @@ class _AddProductState extends State<AddProduct> {
         FilteringTextInputFormatter.allow(RegExp(r'[0-9]+[,.]{0,1}[0-9]*')),
       ],
       decoration: InputDecoration(
-        labelStyle: TextStyle(fontSize: 17),
+        labelStyle: TextStyle(fontSize: 15),
         hintText: hintText
       ),
       onChanged: (value) {

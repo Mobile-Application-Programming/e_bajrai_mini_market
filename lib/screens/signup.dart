@@ -55,7 +55,7 @@ class _SignUpState extends State<SignUp> {
 
   Widget _buildAllTextFormField() {
     return Container(
-      height: 330,
+      height: 300,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -137,7 +137,7 @@ class _SignUpState extends State<SignUp> {
 
   Widget _buildBottomPart() {
     return Container(
-      height: 440,
+      height: 380,
       margin: EdgeInsets.symmetric(horizontal: 10),
       width: double.infinity,
       child: Column(
@@ -154,7 +154,7 @@ class _SignUpState extends State<SignUp> {
               style: ElevatedButton.styleFrom(
                 primary: HexColor("#53B175"), // Background color
               ),
-              child: Text("Sign Up"),
+              child: Text("Sign Up", style: TextStyle(fontSize: 20)),
             ),
           ),
           SizedBox(
@@ -188,7 +188,7 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 200,
+                    height: 150,
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,

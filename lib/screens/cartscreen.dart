@@ -2,23 +2,31 @@ import 'package:e_bajrai_mini_market/screens/card_products.dart';
 import 'package:e_bajrai_mini_market/screens/cart_total.dart';
 import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:e_bajrai_mini_market/widgets/cartsingleproduct.dart';
+import 'package:e_bajrai_mini_market/widgets/drawer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import './checkout.dart';
-import '../provider/product_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:e_bajrai_mini_market/controller/cart_controller.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+
+  GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   final cartController = Get.put(CartController());
   final controller = Get.find<CartController>();
-  CartScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
+      drawer: DrawerCustomer(),
       appBar: AppBar(
         centerTitle: true,
         title: Text("Your Cart", style: TextStyle(color: Colors.black)),
@@ -26,14 +34,12 @@ class CartScreen extends StatelessWidget {
         elevation: 0.0,
         leading: IconButton(
           icon: Icon(
-            Icons.arrow_back,
+            Icons.menu,
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => HomePage()),
-            );
-          },
+            _key.currentState?.openDrawer();
+          }
         ),
       ),
       body: Column(

@@ -3,7 +3,6 @@ import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:e_bajrai_mini_market/model/product.dart';
-import 'package:e_bajrai_mini_market/provider/product_provider.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:provider/provider.dart';
 

@@ -24,22 +24,6 @@ class ListProductAdmin extends StatelessWidget {
                 MaterialPageRoute(builder: (ctx) => HomepageAdmin()),
               );
             }),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          )
-        ],
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 20),

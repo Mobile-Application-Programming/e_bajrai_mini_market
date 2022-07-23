@@ -113,7 +113,7 @@ class _EditProductState extends State<EditProduct> {
                         const Text(
                           "Add Image",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -126,7 +126,7 @@ class _EditProductState extends State<EditProduct> {
                 const Text(
                   "Product Information",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -168,7 +168,7 @@ class _EditProductState extends State<EditProduct> {
                       iconSize: 36,
                       icon: Icon(Icons.arrow_drop_down, color: Colors.black),
                       isExpanded: true,
-                      hint: Text("Product Category"),
+                      hint: Text("Product Category", style: TextStyle(fontSize: 15)),
                       items: categories.map(buildMenuItem).toList(),
                       onChanged: (value) => setState(() { 
                         this.value = value;
@@ -198,7 +198,7 @@ class _EditProductState extends State<EditProduct> {
                     child: Text(
                       "Update Product",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -276,7 +276,7 @@ class _EditProductState extends State<EditProduct> {
     value: item,
     child: Text(
       item,
-      style: TextStyle(fontSize: 17),
+      style: TextStyle(fontSize: 15),
     )
   );
 
@@ -288,7 +288,7 @@ class _EditProductState extends State<EditProduct> {
     ) {
     return TextFormField(
       decoration: InputDecoration(
-        labelStyle: TextStyle(fontSize: 17),
+        labelStyle: TextStyle(fontSize: 15),
         hintText: hintText,
         labelText: labelText
       ),
@@ -314,7 +314,7 @@ class _EditProductState extends State<EditProduct> {
         FilteringTextInputFormatter.allow(RegExp(r'[0-9]+[,.]{0,1}[0-9]*')),
       ],
       decoration: InputDecoration(
-        labelStyle: TextStyle(fontSize: 17),
+        labelStyle: TextStyle(fontSize: 15),
         hintText: hintText,
         labelText: labelText
       ),

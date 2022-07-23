@@ -30,14 +30,14 @@ class SingleProduct extends StatelessWidget {
         Text(
           "${name}",
           style: TextStyle(
-            fontSize: 17
+            fontSize: 15
           ),
         ),
         Text(
           "\RM ${price.toStringAsFixed(2)}", 
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 17,
+            fontSize: 15,
             color: Color.fromARGB(255, 85, 94, 88)),
         ),
       ],

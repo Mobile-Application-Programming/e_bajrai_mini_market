@@ -18,7 +18,7 @@ class CheckOutSingleProduct extends StatefulWidget {
   _CheckOutSingleProductState createState() => _CheckOutSingleProductState();
 }
 
-TextStyle myStyle = TextStyle(fontSize: 18);
+TextStyle myStyle = TextStyle(fontSize: 17);
 
 class _CheckOutSingleProductState extends State<CheckOutSingleProduct> {
   late double height, width;
@@ -43,7 +43,7 @@ class _CheckOutSingleProductState extends State<CheckOutSingleProduct> {
         children: [
           Text(
             widget.name,
-            style: myStyle,
+            style: TextStyle(fontSize: 15),
           ),
           // IconButton(
           //   icon: Icon(Icons.close),
@@ -83,12 +83,12 @@ class _CheckOutSingleProductState extends State<CheckOutSingleProduct> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text("Quantity"),
+          Text("Quantity", style: TextStyle(fontSize: 15)),
           Padding(
             padding: const EdgeInsets.only(right: 5),
             child: Text(
               widget.quentity.toString(),
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 15),
             ),
           ),
         ],
@@ -122,10 +122,10 @@ class _CheckOutSingleProductState extends State<CheckOutSingleProduct> {
                         _buildNameAndClosePart(),
                         //_buildColorAndSizePart(),
                         Text(
-                          "\$${widget.price.toStringAsFixed(2)}",
+                          "\RM${widget.price.toStringAsFixed(2)}",
                           style: TextStyle(
                               color: HexColor("#53B175"),
-                              fontSize: 18,
+                              fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),
                         _buildCountOrNot(),

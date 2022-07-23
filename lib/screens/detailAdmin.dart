@@ -92,7 +92,7 @@ class _DetailAdminState extends State<DetailAdmin> {
   }
 
   final TextStyle myStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: FontWeight.bold,
   );
 
@@ -118,15 +118,6 @@ class _DetailAdminState extends State<DetailAdmin> {
             );
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Container(
         child: ListView(

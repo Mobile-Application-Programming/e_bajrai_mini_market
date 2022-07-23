@@ -25,7 +25,7 @@ class CartProducts extends StatelessWidget {
     //print(userController.userModel.value.cart!.toList()[0].name);
     return Obx(
       () => SizedBox(
-        height: 550, 
+        height: 450, 
         child: ListView.builder(
           itemCount: userController.userModel.value.cart.length,
           itemBuilder: (BuildContext context, int index) {
@@ -79,7 +79,7 @@ class CartProductCard extends StatelessWidget {
           Expanded(
             child: Text(
               product.name,
-              style: TextStyle(fontSize: 17)
+              style: TextStyle(fontSize: 15)
             ),
             
           ),
@@ -95,7 +95,7 @@ class CartProductCard extends StatelessWidget {
           ),
           Text(
             '${quantity}',
-            style: TextStyle(fontSize: 17)
+            style: TextStyle(fontSize: 15)
           ),
           IconButton(
             onPressed: (){

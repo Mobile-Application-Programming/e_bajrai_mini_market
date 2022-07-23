@@ -3,25 +3,20 @@ import 'package:e_bajrai_mini_market/screens/customerOrder.dart';
 import 'package:e_bajrai_mini_market/screens/detailscreen.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
 import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
+import 'package:e_bajrai_mini_market/widgets/drawer.dart';
 import 'package:e_bajrai_mini_market/widgets/singleproduct.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../model/product.dart';
 import '../model/usermodel.dart';
-import 'package:e_bajrai_mini_market/provider/product_provider.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/login.dart';
 import 'package:e_bajrai_mini_market/screens/profilescreen.dart';
-import 'package:e_bajrai_mini_market/provider/product_provider.dart';
-import 'package:e_bajrai_mini_market/provider/category_provider.dart';
 import 'package:e_bajrai_mini_market/screens/searchproduct.dart';
 import 'package:get/get.dart';
 import '../widgets/checkout_singleproduct.dart';
-import 'package:provider/provider.dart';
 import 'package:e_bajrai_mini_market/screens/cartscreen.dart';
-
-//product_provider.getUserModel();
 
 Product? chickenData;
 Product? beefData;
@@ -35,8 +30,6 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
-//late CategoryProvider categoryProvider;
 
 class _HomePageState extends State<HomePage> {
 
@@ -53,118 +46,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget _buildUserAccountsDrawerHeader() {
-  //   List<UserModel> userModel = productProvider.userModelList;
-  //   return Column(
-  //       children: userModel.map((e) {
-  //     return UserAccountsDrawerHeader(
-  //       accountName: Text(
-  //         e.userName,
-  //         style: TextStyle(color: Colors.black),
-  //       ),
-  //       currentAccountPicture: CircleAvatar(
-  //         backgroundColor: Colors.white,
-  //         backgroundImage: AssetImage("images/userImage.png"),
-  //         // backgroundImage: e.userImage == null
-  //         //     ? AssetImage("images/userImage.png")
-  //         //     : NetworkImage(e.userImage),
-  //       ),
-  //       decoration: BoxDecoration(color: Color(0xfff2f2f2)),
-  //       accountEmail: Text(e.userEmail, style: TextStyle(color: Colors.black)),
-  //     );
-  //   }).toList());
-  // }
-
-  bool homeColor = true;
-  bool cartColor = false;
-  bool aboutColor = false;
-  bool profileColor = false;
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
 
-    // return Provider<CategoryProvider>(
-    //   create: (context) => CategoryProvider(),
-    //   builder: (context, child) {
-    // categoryProvider=Provider.of<CategoryProvider>(context);
-    // categoryProvider.getfruitVegData();
-
     return Scaffold(
       key: _key,
-      drawer: Drawer(
-          child: ListView(children: <Widget>[
-        //_buildUserAccountsDrawerHeader(),
-        ListTile(
-          selected: homeColor,
-          onTap: () {
-            setState(() {
-              homeColor = true;
-              cartColor = false;
-              aboutColor = false;
-              profileColor = false;
-            });
-          },
-          leading: Icon(Icons.home),
-          title: Text("Home"),
-        ),
-        ListTile(
-          selected: profileColor,
-          onTap: () {
-            setState(() {
-              aboutColor = false;
-              cartColor = false;
-              homeColor = false;
-              profileColor = true;
-            });
-            // Navigator.of(context).pushReplacement(
-            //   MaterialPageRoute(
-            //     builder: (ctx)=>ProfileScreen(),
-            //   ),
-            // );
-          },
-          leading: Icon(Icons.account_circle),
-          title: Text("Profile"),
-        ),
-        ListTile(
-          selected: cartColor,
-          onTap: () {
-            setState(() {
-              cartColor = true;
-              homeColor = false;
-              aboutColor = false;
-              profileColor = false;
-            });
-            Get.to(() => CartScreen());
-          },
-          leading: Icon(Icons.shopping_cart),
-          title: Text("Cart"),
-        ),
-        ListTile(
-          selected: aboutColor,
-          onTap: () {
-            setState(() {
-              aboutColor = true;
-              cartColor = false;
-              homeColor = false;
-              profileColor = false;
-            });
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (ctx) => CustomerOrder()),
-            );
-          },
-          leading: Icon(Icons.list_alt_sharp),
-          title: Text("Orders"),
-        ),
-        ListTile(
-          onTap: () {
-            logout(context);
-          },
-          leading: Icon(Icons.exit_to_app),
-          title: Text("Logout"),
-        ),
-      ])),
+      drawer: DrawerCustomer(),
       appBar: AppBar(
          title: Text(
           "HomePage",
@@ -174,13 +63,14 @@ class _HomePageState extends State<HomePage> {
         elevation: 0.0,
         backgroundColor: Colors.grey[100],
         leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              _key.currentState?.openDrawer();
-            }),
+          icon: Icon(
+            Icons.menu,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            _key.currentState?.openDrawer();
+          }
+        ),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -190,12 +80,6 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 showSearch(context: context, delegate: SearchProduct());
               }),
-          IconButton(
-              icon: Icon(
-                Icons.notifications_none,
-                color: Colors.black,
-              ),
-              onPressed: () {}),
         ],
       ),
       body: FutureBuilder(

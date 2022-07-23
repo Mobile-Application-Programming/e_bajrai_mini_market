@@ -33,13 +33,6 @@ class ListProduct extends StatelessWidget {
             ),
             onPressed: () {},
           ),
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          )
         ],
       ),
       body: Container(

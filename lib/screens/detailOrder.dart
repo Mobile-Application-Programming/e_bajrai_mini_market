@@ -51,7 +51,7 @@ class DetailOrder extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Container(
-                height: 280,
+                height: 260,
                 width: 170,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +62,7 @@ class DetailOrder extends StatelessWidget {
                         Text(
                           "Order Information",
                           style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -72,42 +72,42 @@ class DetailOrder extends StatelessWidget {
                     Text(
                       "Order ID: ${orderID}",
                       style: TextStyle(
-                        fontSize: 17
+                        fontSize: 15
                       ),
                     ),
                     SizedBox(height:12),
                     Text(
                       "Order Date: ${orderDate}",
                       style: TextStyle(
-                        fontSize: 17
+                        fontSize: 15
                       ),
                     ),
                     SizedBox(height:12),
                     Text(
                       "Name: ${userName}",
                       style: TextStyle(
-                        fontSize: 17
+                        fontSize: 15
                       ),
                     ),
                     SizedBox(height:12),
                     Text(
                       "Email: ${userEmail}",
                       style: TextStyle(
-                        fontSize: 17
+                        fontSize: 15
                       ),
                     ), 
                     SizedBox(height:12),
                     Text(
                       "Phone Number: ${userPhoneNumber}",
                       style: TextStyle(
-                        fontSize: 17
+                        fontSize: 15
                       ),
                     ), 
                     SizedBox(height:12),
                     Text(
                       "Address: ${userAddress}",
                       style: TextStyle(
-                        fontSize: 17
+                        fontSize: 15
                       ),
                     ),  
                   ],
@@ -149,12 +149,12 @@ class DetailOrder extends StatelessWidget {
                                 SizedBox(height: 10),
                                 Text(
                                   "x${orderItem[index].quantity}",
-                                  style: TextStyle(fontSize: 17)
+                                  style: TextStyle(fontSize: 15)
                                 ),
                                 SizedBox(height: 10),
                                 Text(
                                   "RM ${orderItem[index].price.toStringAsFixed(2)}",
-                                  style: TextStyle(fontSize: 17)
+                                  style: TextStyle(fontSize: 15)
                                 ),
                               ],
                             ),

@@ -11,7 +11,7 @@ class CartSingleProduct extends StatefulWidget {
 }
 int count=0;
 
-TextStyle myStyle = TextStyle(fontSize: 18);
+TextStyle myStyle = TextStyle(fontSize: 17);
 class _CartSingleProductState extends State<CartSingleProduct> {
   @override
   Widget build(BuildContext context) {

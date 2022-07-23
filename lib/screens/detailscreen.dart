@@ -6,7 +6,6 @@ import 'package:e_bajrai_mini_market/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:e_bajrai_mini_market/screens/listproduct.dart';
-import '../provider/product_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:e_bajrai_mini_market/controller/cart_controller.dart';
@@ -83,7 +82,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   final TextStyle myStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: FontWeight.bold,
   );
 
@@ -109,15 +108,6 @@ class _DetailScreenState extends State<DetailScreen> {
             );
           },
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.notifications_none,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Container(
         child: ListView(
@@ -159,7 +149,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Text(
                                   widget.name,
                                   style: TextStyle(
-                                    fontSize: 22,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -175,7 +165,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 Text(
                                   "Description",
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                     height: 3.0,
                                   ),
@@ -201,7 +191,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       Text(
                         "Packing Size",
-                        style: myStyle,
+                        style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
                       ),
                       Container(
                         height: 80,
