@@ -113,7 +113,7 @@ class _CheckOutSingleProductState extends State<CheckOutSingleProduct> {
                 _buildImage(),
                 Container(
                   height: height * 0.1 + 50,
-                  width: width * 0.6,
+                  width: width * 0.5,
                   child: ListTile(
                     title: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -263,7 +263,7 @@ class _DetailAdminState extends State<DetailAdmin> {
                         children: [
                           Container(
                               height: 60,
-                              width: 165,
+                              width: 140,
                               child: ElevatedButton(
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
@@ -297,7 +297,7 @@ class _DetailAdminState extends State<DetailAdmin> {
                           Container(width: 10),
                           Container(
                               height: 60,
-                              width: 165,
+                              width: 140,
                               child: ElevatedButton(
                                 style: ButtonStyle(
                                     shape: MaterialStateProperty.all<

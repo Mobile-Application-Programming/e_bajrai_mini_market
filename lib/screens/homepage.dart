@@ -351,51 +351,57 @@ class _HomePageState extends State<HomePage> {
                                                                 Row(
                                                                   children: <
                                                                       Widget>[
-                                                                    GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pushReplacement(
-                                                                          MaterialPageRoute(
-                                                                            builder: (ctx) => DetailScreen(
-                                                                                name: chickenData!.name,
-                                                                                description: chickenData!.description,
-                                                                                price: chickenData!.price,
-                                                                                image: chickenData!.image,
-                                                                                packing: chickenData!.packing),
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                      child: SingleProduct(
-                                                                          name: chickenData!
-                                                                              .name,
-                                                                          price: chickenData!
-                                                                              .price,
-                                                                          image:
-                                                                              chickenData!.image),
+                                                                    Container(
+                                                                      width: 160,
+                                                                      child: GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pushReplacement(
+                                                                            MaterialPageRoute(
+                                                                              builder: (ctx) => DetailScreen(
+                                                                                  name: chickenData!.name,
+                                                                                  description: chickenData!.description,
+                                                                                  price: chickenData!.price,
+                                                                                  image: chickenData!.image,
+                                                                                  packing: chickenData!.packing),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child: SingleProduct(
+                                                                            name: chickenData!
+                                                                                .name,
+                                                                            price: chickenData!
+                                                                                .price,
+                                                                            image:
+                                                                                chickenData!.image),
+                                                                      ),
                                                                     ),
-                                                                    GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pushReplacement(
-                                                                          MaterialPageRoute(
-                                                                            builder: (ctx) => DetailScreen(
-                                                                                name: beefData!.name,
-                                                                                description: beefData!.description,
-                                                                                price: beefData!.price,
-                                                                                image: beefData!.image,
-                                                                                packing: beefData!.packing),
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                      child: SingleProduct(
-                                                                          name: beefData!
-                                                                              .name,
-                                                                          price: beefData!
-                                                                              .price,
-                                                                          image:
-                                                                              beefData!.image),
+                                                                    Container(
+                                                                      width: 160,
+                                                                      child: GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pushReplacement(
+                                                                            MaterialPageRoute(
+                                                                              builder: (ctx) => DetailScreen(
+                                                                                  name: beefData!.name,
+                                                                                  description: beefData!.description,
+                                                                                  price: beefData!.price,
+                                                                                  image: beefData!.image,
+                                                                                  packing: beefData!.packing),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child: SingleProduct(
+                                                                            name: beefData!
+                                                                                .name,
+                                                                            price: beefData!
+                                                                                .price,
+                                                                            image:
+                                                                                beefData!.image),
+                                                                      ),
                                                                     ),
                                                                   ],
                                                                 )

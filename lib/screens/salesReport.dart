@@ -219,39 +219,43 @@ class _SalesReportState extends State<SalesReport> {
     );
   }
 
-  Material _buildBox(String title, String data1) {
-    return Material(     
-      color: Colors.white,
-      elevation: 14.0,
-      borderRadius: BorderRadius.circular(24.0),
-      shadowColor: Color(0x802196F3),
-      child: Center(child: 
-        Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: (){}, 
-                    icon: Icon(Icons.stacked_line_chart),
-                    color: HexColor("#828282"),
-                  ),
-                  Text(title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    )
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Text(data1,
-              style: TextStyle(
-                fontSize: 19,
-                fontWeight: FontWeight.bold,)
-              ),
-            ],
+  Container _buildBox(String title, String data1) {
+    return Container(
+      width: 100,
+      height: 100,
+      child: Material(     
+        color: Colors.white,
+        elevation: 14.0,
+        borderRadius: BorderRadius.circular(24.0),
+        shadowColor: Color(0x802196F3),
+        child: Center(child: 
+          Padding(
+            padding: EdgeInsets.all(1.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: (){}, 
+                      icon: Icon(Icons.stacked_line_chart),
+                      color: HexColor("#828282"),
+                    ),
+                    Text(title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      )
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Text(data1,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,)
+                ),
+              ],
+            ),
           ),
         ),
       ),
